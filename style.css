@@ -47,7 +47,7 @@ h1.typing {
 /* Specific typing animation for 4 characters "Aayu" */
 @keyframes type-name {
     from { width: 0; }
-    to { width: 140px; } /* Adjust this width until "Aayu" fits perfectly */
+    to { width: 200px; } /* Adjust this width until "Aayu" fits perfectly */
 }
 
 /* The blinking cursor */
