@@ -63,7 +63,7 @@ p { color: var(--text-dim); font-size: 1.1rem; }
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
     border-color: var(--accent);
 }
 
