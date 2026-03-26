@@ -7,6 +7,7 @@
     --text-dim: #94a3b8;
 }
 
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg);
@@ -22,7 +23,38 @@ header {
     margin-bottom: 60px;
     animation: fadeIn 1s ease-in;
 }
+h1.typing {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    display: inline-block; /* Essential for the typewriter effect */
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    
+    /* Typewriter Logic */
+    overflow: hidden; 
+    white-space: nowrap; 
+    border-right: 4px solid var(--accent); /* The Cursor */
+    width: 0; /* Starts at zero */
+    
+    /* Animation: 2s for typing, 0.75s for blinking */
+    animation: 
+        type-name 2s steps(4, end) forwards, 
+        blink-caret .75s step-end infinite;
+}
 
+/* Specific typing animation for 4 characters "Aayu" */
+@keyframes type-name {
+    from { width: 0; }
+    to { width: 140px; } /* Adjust this width until "Aayu" fits perfectly */
+}
+
+/* The blinking cursor */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--accent); }
+}
 h1 {
     font-size: 3rem;
     margin-bottom: 10px;
