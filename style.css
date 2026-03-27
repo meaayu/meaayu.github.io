@@ -40,7 +40,7 @@ h1.typing {
     
     /* Animation: 2s for typing, 0.75s for blinking */
     animation: 
-        type-name 1s steps(18), 
+        type-name 1s steps(11), 
         blink-caret .75s step-end infinite;
 }
 
