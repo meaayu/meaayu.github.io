@@ -24,8 +24,8 @@ header {
     animation: fadeIn 1s ease-in;
 }
 h1.typing {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 5rem;
+    margin-bottom: 5px;
     display: inline-block; /* Essential for the typewriter effect */
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
