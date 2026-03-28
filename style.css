@@ -25,17 +25,18 @@ header {
 h1.typing {
     font-size: 5rem;
     margin-bottom: 5px;
+    letter-spacing: 5px;
     display: inline-block; /* Essential for the typewriter effect */
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 600;
+    font-weight: normal;
 
     /* Typewriter Logic */
     overflow: hidden;
     white-space: nowrap;
     border-right: 4px solid var(--accent); /* The Cursor */
-    width: 7ch; /* Starts at zero */
+    width: 8ch; /* Starts at zero */
 
     /* Animation: 2s for typing, 0.75s for blinking */
     animation:
@@ -49,7 +50,7 @@ h1.typing {
         width: 0;
     }
     to {
-        width: 7ch;
+        width: 8ch;
     }
 }
 
@@ -63,13 +64,21 @@ h1.typing {
         border-color: var(--accent);
     }
 }
+@font-face {
+    font-family: "scientifica"; /* The name you choose */
+    src: url("fonts/scientifica.ttf") format("truetype"); /* Path to the file */
+    font-weight: normal;
+    font-style: normal;
+}
+
 h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: clamp(10rem, 8vw, 5rem);
+    margin-bottom: 0rem;
+    font-family: "scientifica", monospace; /* Added semicolon and fallback */
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 600;
+    font-weight: normal; /* Changed to match your @font-face */
 }
 
 .subtitle {
