@@ -3,63 +3,167 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>aayu | Portfolio</title>
-
+        <title>~/aayu.</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
             rel="stylesheet"
         />
-
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <header>
-            <h1 class="typing">~/aayu.</h1>
-            <p class="subtitle">~/aspiring_developer/artist</p>
-        </header>
+        <canvas id="c"></canvas>
 
-        <section>
-            <h2>About Me</h2>
-            <p>
-                I focus on building efficient software, creating digital art and
-                Hand-Drawn Animation. I’m passionate about Linux
-                customization—specifically optimizing Wayland and Niri—and
-                crafting desktop environment.
-            </p>
-        </section>
+        <main>
+            <!-- HERO -->
+            <section id="hero">
+                <span class="hero-stamp">Kathmandu/ Nepal — 2026</span>
 
-        <section>
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Digital Portfolio</h3>
-                    <p>
-                        A high-performance personal site showcasing 2D animation
-                        and coding projects.
+                <h1 class="hero-name">
+                    <span class="path">~/</span>Aayu<span class="dot">.</span>
+                </h1>
+
+                <div class="hero-foot">
+                    <div class="hero-role">aspiring_developer/artist</div>
+                    <p class="hero-desc">
+                        I write code the way I draw —<br />
+                        slowly, deliberately, by hand.
                     </p>
-                    <div class="tag-container">
-                        <span class="tag">HTML/CSS</span>
-                        <span class="tag">Portfolio</span>
+                </div>
+            </section>
+
+            <hr class="rule" />
+
+            <!-- ABOUT -->
+            <div id="about">
+                <div class="about-aside reveal">
+                    <div class="s-label">About</div>
+                    <div class="aside-meta">
+                        based_in<b>Kathmandu, Nepal</b> working_in<b
+                            >Linux / Wayland<br />2D Animation<br />Hand-drawn
+                            Art</b
+                        >
+                        status<b>Building in public</b>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <h3>Linux Desktop</h3>
-                    <p>
-                        Optimized tiling compositor setups, focusing on
-                        minimalism and speed.
+                <div class="about-body">
+                    <p class="reveal">
+                        I focus on building <strong>efficient software</strong>,
+                        creating digital art and <em>hand-drawn animation</em>.
                     </p>
-                    <div class="tag-container">
-                        <span class="tag">Wayland</span>
-                        <span class="tag">Shell</span>
-                        <span class="tag">Linux</span>
-                    </div>
+                    <p class="reveal">
+                        Passionate about Linux customization — specifically
+                        optimising Wayland and Niri — and crafting desktop
+                        environments that feel like they belong to myself.
+                    </p>
+                    <p class="reveal">
+                        The same patience that keeps me at a drawing board keeps
+                        me debugging at 2am. I don't separate the two practices.
+                    </p>
                 </div>
             </div>
-        </section>
+
+            <!-- WORK -->
+            <section id="work">
+                <div class="s-label reveal">Projects</div>
+
+                <div class="work-list">
+                    <div class="work-item reveal">
+                        <div class="work-n">01</div>
+                        <div class="work-info">
+                            <div class="work-type">Open Source / Systems</div>
+                            <h2 class="work-title">
+                                Niri <em>Desktop</em><br />Environment
+                            </h2>
+                            <p class="work-desc">
+                                A scrollable-tiling Wayland compositor for
+                                Linux. Built for focus — no clutter, no noise.
+                                Every pixel of layout is intentional, crafted to
+                                get out of your way.
+                            </p>
+                        </div>
+                        <div class="work-aside">
+                            <div class="work-tags">
+                                <span class="tag">Linux / Wayland</span>
+                                <span class="tag">Shell</span>
+                                <span class="tag">Systems</span>
+                            </div>
+                            <div class="work-status">
+                                <span class="active"></span>Active Build
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item reveal">
+                        <div class="work-n">02</div>
+                        <div class="work-info">
+                            <div class="work-type">Visual Art</div>
+                            <h2 class="work-title">2D <em>Art</em></h2>
+                            <p class="work-desc">
+                                Ink and digital work — geometry, texture, and
+                                the feeling of things slightly out of place.
+                                Drawn slow, finished slow. Each piece exists as
+                                a real physical drawing first.
+                            </p>
+                        </div>
+                        <div class="work-aside">
+                            <div class="work-tags">
+                                <span class="tag">Ink on Paper</span>
+                                <span class="tag">Digital Colour</span>
+                                <span class="tag">Ongoing</span>
+                            </div>
+                            <div class="work-status">
+                                <span class="dot-live"></span>In Progress
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item reveal">
+                        <div class="work-n">03</div>
+                        <div class="work-info">
+                            <div class="work-type">Hand-drawn Animation</div>
+                            <h2 class="work-title">
+                                Frame by<br /><em>Frame</em> Animation
+                            </h2>
+                            <p class="work-desc">
+                                Short-form hand-drawn animations. Every frame is
+                                a real drawing. The imperfection is the point —
+                                movement that feels like it remembers being
+                                still.
+                            </p>
+                        </div>
+                        <div class="work-aside">
+                            <div class="work-tags">
+                                <span class="tag">Traditional</span>
+                                <span class="tag">Frame-by-frame</span>
+                                <span class="tag">Short Film</span>
+                            </div>
+                            <div class="work-status">
+                                <span class="dot-live"></span>In Progress
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact">
+                <div class="s-label reveal">Contact</div>
+                <h2 class="contact-big reveal">Say<br /><em>hello.</em></h2>
+                <div class="contact-links reveal">
+                    <a href="mailto:hello@aayu.dev" class="cl">Email</a>
+                    <a href="#" class="cl">GitHub</a>
+                    <a href="#" class="cl">Instagram</a>
+                </div>
+            </section>
+        </main>
 
         <footer>
-            <p>© 2026 aayu •</p>
+            <span>~/aayu. — 2026</span>
+            <span>developer &amp; artist — kathmandu</span>
         </footer>
+
+        <script src="script.js"></script>
     </body>
 </html>
