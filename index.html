@@ -3,165 +3,178 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>~/aayu.</title>
+        <title>aayu - Portfolio — Artist, Designer & Developer</title>
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap"
             rel="stylesheet"
         />
+
         <link rel="stylesheet" href="style.css" />
     </head>
-    <body>
-        <canvas id="c"></canvas>
+    <body data-theme="light">
+        <div class="cursor" id="cursor"></div>
+        <div class="cursor-ring" id="cursorRing"></div>
 
-        <main>
-            <!-- HERO -->
-            <section id="hero">
-                <span class="hero-stamp">Kathmandu/ Nepal — 2026</span>
-
-                <h1 class="hero-name">
-                    <span class="path">~/</span>Aayu<span class="dot">.</span>
-                </h1>
-
-                <div class="hero-foot">
-                    <div class="hero-role">aspiring_developer/artist</div>
-                    <p class="hero-desc">
-                        I write code the way I draw —<br />
-                        slowly, deliberately, by hand.
-                    </p>
-                </div>
-            </section>
-
-            <hr class="rule" />
-
-            <!-- ABOUT -->
-            <div id="about">
-                <div class="about-aside reveal">
-                    <div class="s-label">About</div>
-                    <div class="aside-meta">
-                        based_in<b>Kathmandu, Nepal</b> working_in<b
-                            >Linux / Wayland<br />2D Animation<br />Hand-drawn
-                            Art</b
-                        >
-                        status<b>Building in public</b>
+        <nav>
+            <div class="nav-logo">~/aayu/Portfolio — 2026</div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <label class="theme-toggle" title="Toggle dark mode">
+                    <input type="checkbox" id="themeToggle" />
+                    <div class="toggle-track">
+                        <div class="toggle-icons">
+                            <svg
+                                class="icon-sun"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <circle cx="12" cy="12" r="5" />
+                                <path
+                                    d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    fill="none"
+                                />
+                            </svg>
+                            <svg
+                                class="icon-moon"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path
+                                    d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                                />
+                            </svg>
+                        </div>
                     </div>
-                </div>
+                    <div class="toggle-thumb"></div>
+                </label>
+            </div>
+        </nav>
 
-                <div class="about-body">
-                    <p class="reveal">
-                        I focus on building <strong>efficient software</strong>,
-                        creating digital art and <em>hand-drawn animation</em>.
+        <section class="hero" id="home">
+            <div class="hero-left">
+                <p class="hero-eyebrow">Artist · Designer · Developer</p>
+                <h1 class="hero-name">
+                    Just<br /><em>me and</em><br />my arts.
+                </h1>
+                <p class="hero-desc">
+                    I create at the intersection of art, design, and code — from
+                    low-level systems to expressive interfaces, with a creative
+                    eye and technical depth.
+                </p>
+            </div>
+            <div class="hero-right">
+                <div class="hero-scroll">Scroll to explore</div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="section-label reveal">About</div>
+            <div class="about">
+                <div class="about-left reveal">
+                    <h2 class="about-title">
+                        Art, code &<br /><em>everything</em><br />between.
+                    </h2>
+                </div>
+                <div class="about-right">
+                    <p class="about-body reveal">
+                        I'm a multidisciplinary artist, designer, and developer
+                        — someone who moves fluidly between a sketchbook and a
+                        terminal. My work spans visual art, interface design,
+                        and software engineering, driven by a belief that
+                        creativity and technical rigor belong together.
                     </p>
-                    <p class="reveal">
-                        Passionate about Linux customization — specifically
-                        optimising Wayland and Niri — and crafting desktop
-                        environments that feel like they belong to myself.
+                    <p class="about-body reveal" style="transition-delay: 0.1s">
+                        On the technical side, I'm fluent in JavaScript, C++,
+                        Lua, and Java, and deeply comfortable on Linux. I'm
+                        drawn to projects that live at the edges — game engines,
+                        creative tools, expressive UIs, and systems that feel
+                        alive.
                     </p>
-                    <p class="reveal">
-                        The same patience that keeps me at a drawing board keeps
-                        me debugging at 2am. I don't separate the two practices.
-                    </p>
+                    <div
+                        class="about-stats reveal"
+                        style="transition-delay: 0.2s"
+                    >
+                        <div>
+                            <div class="stat-num">3</div>
+                            <div class="stat-label">Disciplines</div>
+                        </div>
+                        <div>
+                            <div class="stat-num">5</div>
+                            <div class="stat-label">Languages</div>
+                        </div>
+                        <div>
+                            <div class="stat-num">&#8734;</div>
+                            <div class="stat-label">Curiosity</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- WORK -->
-            <section id="work">
-                <div class="s-label reveal">Projects</div>
-
-                <div class="work-list">
-                    <div class="work-item reveal">
-                        <div class="work-n">01</div>
-                        <div class="work-info">
-                            <div class="work-type">Open Source / Systems</div>
-                            <h2 class="work-title">
-                                Niri <em>Desktop</em><br />Environment
-                            </h2>
-                            <p class="work-desc">
-                                A scrollable-tiling Wayland compositor for
-                                Linux. Built for focus — no clutter, no noise.
-                                Every pixel of layout is intentional, crafted to
-                                get out of your way.
-                            </p>
-                        </div>
-                        <div class="work-aside">
-                            <div class="work-tags">
-                                <span class="tag">Linux / Wayland</span>
-                                <span class="tag">Shell</span>
-                                <span class="tag">Systems</span>
-                            </div>
-                            <div class="work-status">
-                                <span class="active"></span>Active Build
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-item reveal">
-                        <div class="work-n">02</div>
-                        <div class="work-info">
-                            <div class="work-type">Visual Art</div>
-                            <h2 class="work-title">2D <em>Art</em></h2>
-                            <p class="work-desc">
-                                Ink and digital work — geometry, texture, and
-                                the feeling of things slightly out of place.
-                                Drawn slow, finished slow. Each piece exists as
-                                a real physical drawing first.
-                            </p>
-                        </div>
-                        <div class="work-aside">
-                            <div class="work-tags">
-                                <span class="tag">Ink on Paper</span>
-                                <span class="tag">Digital Colour</span>
-                                <span class="tag">Ongoing</span>
-                            </div>
-                            <div class="work-status">
-                                <span class="dot-live"></span>In Progress
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-item reveal">
-                        <div class="work-n">03</div>
-                        <div class="work-info">
-                            <div class="work-type">Hand-drawn Animation</div>
-                            <h2 class="work-title">
-                                Frame by<br /><em>Frame</em> Animation
-                            </h2>
-                            <p class="work-desc">
-                                Short-form hand-drawn animations. Every frame is
-                                a real drawing. The imperfection is the point —
-                                movement that feels like it remembers being
-                                still.
-                            </p>
-                        </div>
-                        <div class="work-aside">
-                            <div class="work-tags">
-                                <span class="tag">Traditional</span>
-                                <span class="tag">Frame-by-frame</span>
-                                <span class="tag">Short Film</span>
-                            </div>
-                            <div class="work-status">
-                                <span class="dot-live"></span>In Progress
-                            </div>
-                        </div>
-                    </div>
+        <section id="skills">
+            <div class="section-label reveal">Expertise</div>
+            <div class="skills-grid reveal">
+                <div class="skill-item">
+                    <div class="skill-cat">Language</div>
+                    <div class="skill-name">JavaScript<br />/ Web</div>
                 </div>
-            </section>
-
-            <!-- CONTACT -->
-            <section id="contact">
-                <div class="s-label reveal">Contact</div>
-                <h2 class="contact-big reveal">Say<br /><em>hello.</em></h2>
-                <div class="contact-links reveal">
-                    <a href="mailto:hello@aayu.dev" class="cl">Email</a>
-                    <a href="#" class="cl">GitHub</a>
-                    <a href="#" class="cl">Instagram</a>
+                <div class="skill-item">
+                    <div class="skill-cat">Language</div>
+                    <div class="skill-name">C++<br />/ Systems</div>
                 </div>
-            </section>
-        </main>
+                <div class="skill-item">
+                    <div class="skill-cat">Language</div>
+                    <div class="skill-name">Lua<br />/ Scripting</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-cat">Language</div>
+                    <div class="skill-name">Java<br />/ Backend</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-cat">Environment</div>
+                    <div class="skill-name">Linux<br />/ Open Source</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-cat">Creative</div>
+                    <div class="skill-name">Visual<br />Art &amp; Design</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-cat">Creative</div>
+                    <div class="skill-name">UI / UX<br />Design</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-cat">Creative</div>
+                    <div class="skill-name">Motion &amp;<br />Interaction</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <p class="contact-tagline reveal">
+                Got something<br /><em>interesting? Let's build it.</em>
+            </p>
+            <div class="reveal" style="transition-delay: 0.3s">
+                <a class="contact-link" href="mailto:hello@yourname.dev"
+                    >Send a message</a
+                >
+                <a class="contact-link" href="https://github.com/meaayu"
+                    >GitHub</a
+                >
+                <a class="contact-link" href="#">Instagram</a>
+            </div>
+        </section>
 
         <footer>
-            <span>~/aayu. — 2026</span>
-            <span>developer &amp; artist — kathmandu</span>
+            <p>&#169; 2025 &#8212; Artist, Designer &amp; Developer</p>
+            <p>Built by me ~/aayu</p>
         </footer>
 
         <script src="script.js"></script>
