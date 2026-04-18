@@ -351,6 +351,44 @@ if (eyebrow) {
   setTimeout(type, 400);
 }
 
+/* ── Magnetic buttons ────────────────────────────────────────── */
+document.querySelectorAll(".btn, .nav-cta").forEach(btn => {
+  btn.addEventListener("mousemove", e => {
+    const r  = btn.getBoundingClientRect();
+    const dx = (e.clientX - r.left - r.width  / 2) * 0.25;
+    const dy = (e.clientY - r.top  - r.height / 2) * 0.25;
+    btn.style.transform = `translate(${dx}px, ${dy}px) translateY(-3px) rotate(-0.7deg)`;
+  });
+  btn.addEventListener("mouseleave", () => {
+    btn.style.transform = "";
+  });
+});
+
+/* ── Back to top ─────────────────────────────────────────────── */
+const backTop = document.getElementById("backTop");
+if (backTop) {
+  window.addEventListener("scroll", () => {
+    backTop.classList.toggle("visible", window.scrollY > 500);
+  }, { passive: true });
+  backTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* ── Active nav link on scroll ───────────────────────────────── */
+const sections   = document.querySelectorAll("section[id], header[id]");
+const navLinks   = document.querySelectorAll(".nav-links a[href^='#']");
+const activeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle("nav-active", a.getAttribute("href") === `#${e.target.id}`);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => activeObserver.observe(s));
+
 /* ── Smooth anchor scroll ────────────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener("click", e => {
@@ -384,3 +422,185 @@ if ("loading" in HTMLImageElement.prototype) {
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.documentElement.classList.add("reduced-motion");
 }
+
+/* ── Project detail modal ────────────────────────────────────── */
+const projects = {
+  1: {
+    title: "Interactive Portfolio Site",
+    desc: "A hand-crafted web experience merging sketchy aesthetics with smooth interactions.",
+    tags: ["Web Dev", "UI/UX", "React"],
+    items: [
+      {
+        name: "Personal Portfolio v1",
+        preview: "https://via.placeholder.com/600x340/bf5430/ffffff?text=Portfolio+v1",
+        link: "#",
+      },
+      {
+        name: "Client Showcase Page",
+        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Client+Showcase",
+        link: "#",
+      },
+      {
+        name: "Design System UI",
+        preview: "https://via.placeholder.com/600x340/1a1815/ffffff?text=Design+System",
+        link: "#",
+      },
+    ],
+  },
+  2: {
+    title: "Short Film Animation",
+    desc: "Hand-drawn 2D animation exploring motion, emotion, and negative space.",
+    tags: ["Animation", "Storyboarding"],
+    items: [
+      {
+        name: "Frame Study — Loop",
+        preview: "https://img.youtube.com/vi/JgvbpIypir4/hqdefault.jpg",
+        link: "https://youtu.be/JgvbpIypir4?si=tXsfJr3ySPf_kNLm",
+        type: "youtube",
+      },
+      {
+        name: "Character Walk Cycle",
+        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Walk+Cycle",
+        link: "#",
+      },
+    ],
+  },
+  3: {
+    title: "Brand Identity System",
+    desc: "Complete visual identity including logo, type system, color palette, and usage guidelines.",
+    tags: ["Graphic Design", "Branding"],
+    items: [
+      {
+        name: "Logo & Wordmark",
+        preview: "https://via.placeholder.com/600x340/bf5430/ffffff?text=Logo+System",
+        link: "#",
+      },
+      {
+        name: "Color & Type Guide",
+        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Type+%26+Color",
+        link: "#",
+      },
+      {
+        name: "Brand Usage Sheet",
+        preview: "https://via.placeholder.com/600x340/1a1815/ffffff?text=Brand+Sheet",
+        link: "#",
+      },
+    ],
+  },
+};
+
+const projectOverlay = document.getElementById("projectOverlay");
+const projectPanel   = document.getElementById("projectPanel");
+const projectClose   = document.getElementById("projectClose");
+
+function extractYTId(url) {
+  const match = url.match(/(?:youtu\.be\/|v=|\/v\/|embed\/)([A-Za-z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
+function openYTPlayer(ytId, title) {
+  window.open(`https://www.youtube.com/watch?v=${ytId}`, "_blank", "noopener,noreferrer");
+}
+
+function closeYTPlayer() {
+  const modal = document.getElementById("ytModal");
+  const iframe = document.getElementById("ytIframe");
+  modal.classList.remove("active");
+  setTimeout(() => {
+    modal.style.display = "none";
+    iframe.src = ""; // stop video
+  }, 300);
+}
+
+function openProject(id) {
+  const p = projects[id];
+  if (!p) return;
+
+  // Tags
+  document.getElementById("projectTags").innerHTML =
+    p.tags.map(t => `<span class="tag">${t}</span>`).join("");
+
+  // Title & desc
+  document.getElementById("projectTitle").textContent = p.title;
+  document.getElementById("projectDesc").textContent  = p.desc;
+
+  // Sub-project grid
+  document.getElementById("projectItems").innerHTML = p.items.map(item => {
+    const isYT = item.type === "youtube";
+    const ytId  = isYT ? extractYTId(item.link) : null;
+
+    const previewHtml = isYT
+      ? `<div class="pitem-preview pitem-yt" data-ytid="${ytId}" data-ytlink="${item.link}" role="button" tabindex="0" aria-label="Watch ${item.name} on YouTube">
+           <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" alt="${item.name}" loading="lazy" />
+           <span class="pitem-play">
+             <svg viewBox="0 0 68 48" aria-hidden="true"><path d="M66.5 7.6C65.7 4.7 63.3 2.4 60.4 1.6 55.1 0 34 0 34 0S12.9 0 7.6 1.6C4.7 2.4 2.4 4.7 1.6 7.6 0 12.9 0 24s1.6 11.1 1.6 16.4C2.4 43.3 4.7 45.6 7.6 46.4 12.9 48 34 48 34 48s21.1 0 26.4-1.6c2.9-.8 5.2-3.1 6-6C68 35.1 68 24 68 24s0-11.1-1.5-16.4z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+             <span class="pitem-play-label">Watch on YouTube ↗</span>
+           </span>
+         </div>`
+      : `<div class="pitem-preview">
+           <img src="${item.preview}" alt="${item.name}" loading="lazy" />
+         </div>`;
+
+    const linkHtml = item.link !== "#"
+      ? `<a class="pitem-link" href="${item.link}" target="_blank" rel="noopener noreferrer">${isYT ? "YouTube ↗" : "View ↗"}</a>`
+      : `<span class="pitem-link" style="opacity:0.3">Soon</span>`;
+
+    return `
+      <div class="pitem">
+        ${previewHtml}
+        <div class="pitem-footer">
+          <span class="pitem-name">${item.name}</span>
+          ${linkHtml}
+        </div>
+      </div>`;
+  }).join("");
+
+  // Attach click handlers for inline YouTube player
+  document.querySelectorAll(".pitem-yt[data-ytid]").forEach(el => {
+    const play = () => openYTPlayer(el.dataset.ytid, el.querySelector("img")?.alt || "");
+    el.addEventListener("click", play);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); } });
+  });
+
+  // Show
+  projectOverlay.style.display = "block";
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => {
+    projectOverlay.classList.add("active");
+    projectPanel.classList.add("active");
+  });
+  projectPanel.setAttribute("aria-hidden", "false");
+  projectClose.focus();
+}
+
+function closeProject() {
+  projectOverlay.classList.remove("active");
+  projectPanel.classList.remove("active");
+  projectPanel.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  setTimeout(() => { projectOverlay.style.display = "none"; }, 400);
+}
+
+document.querySelectorAll(".work-card[data-project]").forEach(card => {
+  card.addEventListener("click", () => openProject(card.dataset.project));
+  card.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openProject(card.dataset.project);
+    }
+  });
+});
+
+projectClose.addEventListener("click", closeProject);
+projectOverlay.addEventListener("click", closeProject);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    if (document.getElementById("ytModal")?.classList.contains("active")) closeYTPlayer();
+    else if (projectPanel.classList.contains("active")) closeProject();
+  }
+});
+
+document.getElementById("ytClose")?.addEventListener("click", closeYTPlayer);
+document.getElementById("ytModal")?.addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeYTPlayer();
+});
