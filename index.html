@@ -3,8 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta name="description" content="Aayu — Developer &amp; Artist blending code, animation, illustration, and design." />
+        <meta name="theme-color" content="#bf5430" />
+        <meta property="og:title" content="Aayu — Developer &amp; Artist" />
+        <meta property="og:description" content="I blend code, hand-drawn animation, illustration, and graphic design into things that feel human, thoughtful, and alive." />
+        <meta property="og:type" content="website" />
         <title>Aayu — Developer & Artist</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
@@ -14,6 +20,7 @@
     </head>
     <body>
         <div id="progress-bar" aria-hidden="true"></div>
+        <div class="sr-only" aria-live="polite" id="announcement" aria-atomic="true"></div>
         <div id="cursor-dot" aria-hidden="true"></div>
         <div id="cursor-ring" aria-hidden="true"></div>
         <div id="cursor-glow" aria-hidden="true"></div>
@@ -106,7 +113,7 @@
         <nav id="mainNav">
             <div class="nav-inner">
                 <a href="#" class="logo">Aayu<span class="logo-dot">.</span></a>
-                <ul class="nav-links">
+                <ul class="nav-links" role="list">
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#work">Work</a></li>
                     <li><a href="#about">About</a></li>
@@ -187,7 +194,7 @@
 
         <main>
             <!-- HERO -->
-            <header class="hero">
+            <header class="hero" id="hero">
                 <div class="hero-content">
                     <span class="hero-eyebrow">Developer &amp; Artist</span>
                     <h1>
@@ -199,6 +206,10 @@
                         graphic design into things that feel human, thoughtful,
                         and alive.
                     </p>
+                    <div class="avail-badge" aria-label="Available for work">
+                        <span class="avail-dot"></span>
+                        Available for work
+                    </div>
                     <div class="hero-actions">
                         <a href="#work" class="btn sk-wrap">
                             See My Work
@@ -348,78 +359,44 @@
             <!-- SKILLS -->
             <section id="skills">
                 <h2>What I Craft</h2>
-                <div class="grid">
-                    <div class="card sk-wrap reveal reveal-d1">
-                        <svg class="sk-svg" aria-hidden="true">
-                            <rect rx="6" />
-                        </svg>
-                        <div class="card-icon-wrap">
-                            <span class="card-icon">💻</span>
+                <div class="skills-belt reveal">
+                    <div class="skill-cluster reveal-d1">
+                        <div class="skill-cluster-header">
+                            <span class="skill-icon">💻</span>
+                            <span class="skill-cluster-name">Development</span>
                         </div>
-                        <h3>Development</h3>
-                        <p>
-                            Clean, responsive interfaces and interactive
-                            experiences built with modern tools.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">HTML/CSS</span
-                            ><span class="tag">JavaScript</span>
-                            <span class="tag">React</span
-                            ><span class="tag">Node.js</span>
+                        <div class="skill-pills">
+                            <span class="spill">HTML/CSS</span><span class="spill">JavaScript</span><span class="spill">React</span><span class="spill">Node.js</span>
                         </div>
                     </div>
-                    <div class="card sk-wrap reveal reveal-d2">
-                        <svg class="sk-svg" aria-hidden="true">
-                            <rect rx="6" />
-                        </svg>
-                        <div class="card-icon-wrap">
-                            <span class="card-icon">🎬</span>
+                    <div class="skill-cluster-sep" aria-hidden="true">✦</div>
+                    <div class="skill-cluster reveal-d2">
+                        <div class="skill-cluster-header">
+                            <span class="skill-icon">🎬</span>
+                            <span class="skill-cluster-name">Animation</span>
                         </div>
-                        <h3>Hand-Drawn Animation</h3>
-                        <p>
-                            Frame-by-frame motion, storyboarding, and character
-                            animation with traditional soul.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">2D Animation</span
-                            ><span class="tag">Storyboarding</span
-                            ><span class="tag">Tahoma2D</span>
+                        <div class="skill-pills">
+                            <span class="spill">2D Animation</span><span class="spill">Storyboarding</span><span class="spill">Tahoma2D</span>
                         </div>
                     </div>
-                    <div class="card sk-wrap reveal reveal-d3">
-                        <svg class="sk-svg" aria-hidden="true">
-                            <rect rx="6" />
-                        </svg>
-                        <div class="card-icon-wrap">
-                            <span class="card-icon">🎨</span>
+                    <div class="skill-cluster-sep" aria-hidden="true">✦</div>
+                    <div class="skill-cluster reveal-d3">
+                        <div class="skill-cluster-header">
+                            <span class="skill-icon">🎨</span>
+                            <span class="skill-cluster-name">Illustration</span>
                         </div>
-                        <h3>Art &amp; Illustration</h3>
-                        <p>
-                            Digital painting, sketching, and visual storytelling
-                            rooted in observation and feeling.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Krita</span
-                            ><span class="tag">Photoshop</span
-                            ><span class="tag">Concept Art</span>
+                        <div class="skill-pills">
+                            <span class="spill">Krita</span><span class="spill">Photoshop</span><span class="spill">Concept Art</span>
                         </div>
                     </div>
-                    <div class="card sk-wrap reveal reveal-d4">
-                        <svg class="sk-svg" aria-hidden="true">
-                            <rect rx="6" />
-                        </svg>
-                        <div class="card-icon-wrap">
-                            <span class="card-icon">🖌️</span>
+                    <div class="skill-cluster-sep" aria-hidden="true">✦</div>
+                    <div class="skill-cluster reveal-d4">
+                        <div class="skill-cluster-header">
+                            <span class="skill-icon">🖌️</span>
+                            <span class="skill-cluster-name">Design</span>
                         </div>
-                        <h3>Graphic Design</h3>
-                        <p>
-                            Branding, UI/UX, layouts, and visual identity
-                            systems that speak clearly.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Figma</span
-                            ><span class="tag">Illustrator</span
-                            ><span class="tag">Typography</span>
+                        <div class="skill-pills">
+                            <span class="spill">Figma</span><span class="spill">Illustrator</span><span class="spill">Typography</span>
                         </div>
                     </div>
                 </div>
@@ -752,7 +729,7 @@
                         <hr class="divider" />
                         <div class="stats">
                             <div class="stat-item">
-                                <span class="stat-num">1+</span>
+                                <span class="stat-num" data-count="1">1+</span>
                                 <span class="stat-label">Years making</span>
                             </div>
                             <div class="stat-item">
@@ -929,7 +906,7 @@
                     </button>
                 </div>
                 <div class="yt-frame-wrap">
-                    <iframe id="ytIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="ytIframe" src="" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

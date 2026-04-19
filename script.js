@@ -1,11 +1,44 @@
+/* ── Accessible announcements ────────────────────────────────── */
+function announce(msg) {
+  const el = document.getElementById("announcement");
+  if (!el) return;
+  el.textContent = "";
+  requestAnimationFrame(() => { el.textContent = msg; });
+}
+
 /* ── Theme toggle ───────────────────────────────────────────── */
 const html = document.documentElement;
 const themeToggle = document.getElementById("themeToggle");
 
-function applyTheme(theme) {
-  html.setAttribute("data-theme", theme);
-  localStorage.setItem("aayu-theme", theme);
-  updateRoleColors(theme);
+function applyTheme(theme, animate = false) {
+  if (animate) {
+    // Position ripple origin at the toggle button
+    const rect = themeToggle.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top  + rect.height / 2;
+    document.body.style.setProperty("--ripple-x", cx + "px");
+    document.body.style.setProperty("--ripple-y", cy + "px");
+
+    // Use View Transitions API if available
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        html.setAttribute("data-theme", theme);
+        localStorage.setItem("aayu-theme", theme);
+        updateRoleColors(theme);
+      });
+    } else {
+      // Fallback: CSS ripple class
+      document.body.classList.add("theme-switching");
+      html.setAttribute("data-theme", theme);
+      localStorage.setItem("aayu-theme", theme);
+      updateRoleColors(theme);
+      setTimeout(() => document.body.classList.remove("theme-switching"), 420);
+    }
+  } else {
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("aayu-theme", theme);
+    updateRoleColors(theme);
+  }
 }
 
 const savedTheme = localStorage.getItem("aayu-theme");
@@ -14,7 +47,7 @@ applyTheme(savedTheme || (prefersDark.matches ? "dark" : "light"));
 
 themeToggle.addEventListener("click", () => {
   const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  applyTheme(next);
+  applyTheme(next, true);
 });
 
 // Auto-switch if OS theme changes and user has no saved preference
@@ -35,66 +68,27 @@ prefersDark.addEventListener("change", e => {
 // OR this script strips inline left-border/left-line siblings directly.
 
 function updateRoleColors(theme) {
-  const isDark = theme === "dark";
-  const color  = isDark ? "#ffffff" : "#000000";
-
-  // Targets role labels containing "developer" or "artist" (case-insensitive)
-  document.querySelectorAll(
-    ".role-label, .hero-eyebrow, [data-role], .role-tag"
-  ).forEach(el => {
+  // Only targets explicit .role-label or [data-role] elements, not hero-eyebrow
+  // which uses design token colors from CSS
+  document.querySelectorAll(".role-label, [data-role], .role-tag").forEach(el => {
     const text = el.textContent.trim().toLowerCase();
     if (text.includes("developer") || text.includes("artist")) {
-      el.style.color      = color;
-      el.style.fontWeight = "400"; // lighter weight
-
-      // Also color any sibling/child line elements
-      el.querySelectorAll(".role-line, .label-line").forEach(line => {
-        line.style.background = color;
-      });
-
-      const prev = el.previousElementSibling;
-      if (prev && (
-        prev.classList.contains("role-line") ||
-        prev.classList.contains("label-line") ||
-        prev.tagName === "HR"
-      )) {
-        prev.style.background = color;
-        prev.style.borderColor = color;
-      }
+      const isDark = theme === "dark";
+      el.style.color      = isDark ? "#ffffff" : "#000000";
+      el.style.fontWeight = "400";
     }
   });
 }
 
-/* ── Remove left-side line from Developer / Artist labels ────── */
-// Strips the FIRST (leftmost) decorative line element that sits
-// immediately before a .role-label. Keeps only the right-side or
-// trailing line if one exists.
+/* ── Remove left-side decorative lines from role labels ──────── */
 function removeLeftLines() {
-  document.querySelectorAll(
-    ".role-label, .hero-eyebrow, [data-role], .role-tag"
-  ).forEach(el => {
-    const text = el.textContent.trim().toLowerCase();
-    if (!text.includes("developer") && !text.includes("artist")) return;
-
-    // Remove leading inline line-span siblings
+  document.querySelectorAll(".role-label, [data-role], .role-tag").forEach(el => {
     const prev = el.previousElementSibling;
     if (prev && (
       prev.classList.contains("role-line") ||
-      prev.classList.contains("label-line") ||
-      (prev.tagName === "SPAN" && prev.getAttribute("aria-hidden") === "true")
+      prev.classList.contains("label-line")
     )) {
       prev.remove();
-    }
-
-    // Remove inner leading line children (first child that is a line span)
-    const firstChild = el.firstElementChild;
-    if (firstChild && (
-      firstChild.classList.contains("role-line") ||
-      firstChild.classList.contains("label-line") ||
-      (getComputedStyle(firstChild).height === "1px") ||
-      (firstChild.style.height === "1px")
-    )) {
-      firstChild.remove();
     }
   });
 }
@@ -122,6 +116,7 @@ window.addEventListener("scroll", () => {
     rafScheduled = true;
     requestAnimationFrame(() => {
       nav.classList.toggle("scrolled", window.scrollY > 40);
+      backTop?.classList.toggle("visible", window.scrollY > 500);
       updateProgress();
     });
   }
@@ -231,7 +226,7 @@ if (statsEl) {
 }
 
 /* ── Animated number counter for stats ──────────────────────── */
-function animateCount(el, target, duration = 1400) {
+function animateCount(el, target, duration = 500) {
   const start     = performance.now();
   const isDecimal = String(target).includes(".");
   const from      = 0;
@@ -256,7 +251,7 @@ const counterObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 
-document.querySelectorAll("[data-count], .stat-number").forEach(el => {
+document.querySelectorAll("[data-count], .stat-num, .stat-number").forEach(el => {
   const raw = parseFloat(el.dataset.count ?? el.textContent);
   if (!isNaN(raw)) {
     el.dataset.count = raw;
@@ -336,10 +331,8 @@ if (eyebrow) {
   typed.className = "eyebrow-typed";
   eyebrow.appendChild(typed);
 
-  // Apply initial color + weight based on current theme
-  const currentTheme = html.getAttribute("data-theme") || "light";
-  eyebrow.style.color      = currentTheme === "dark" ? "#ffffff" : "#000000";
-  eyebrow.style.fontWeight = "400";
+  // Color is handled by CSS var(--accent) — don't override with inline styles
+  eyebrow.style.fontWeight = "500";
 
   let i = 0;
   const type = () => {
@@ -367,9 +360,6 @@ document.querySelectorAll(".btn, .nav-cta").forEach(btn => {
 /* ── Back to top ─────────────────────────────────────────────── */
 const backTop = document.getElementById("backTop");
 if (backTop) {
-  window.addEventListener("scroll", () => {
-    backTop.classList.toggle("visible", window.scrollY > 500);
-  }, { passive: true });
   backTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
@@ -432,17 +422,17 @@ const projects = {
     items: [
       {
         name: "Personal Portfolio v1",
-        preview: "https://via.placeholder.com/600x340/bf5430/ffffff?text=Portfolio+v1",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%23bf5430'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EPortfolio v1%3C/text%3E%3C/svg%3E",
         link: "#",
       },
       {
         name: "Client Showcase Page",
-        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Client+Showcase",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%233d7265'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EClient Showcase%3C/text%3E%3C/svg%3E",
         link: "#",
       },
       {
         name: "Design System UI",
-        preview: "https://via.placeholder.com/600x340/1a1815/ffffff?text=Design+System",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%231a1815'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EDesign System%3C/text%3E%3C/svg%3E",
         link: "#",
       },
     ],
@@ -460,7 +450,7 @@ const projects = {
       },
       {
         name: "Character Walk Cycle",
-        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Walk+Cycle",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%233d7265'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EWalk Cycle%3C/text%3E%3C/svg%3E",
         link: "#",
       },
     ],
@@ -472,17 +462,17 @@ const projects = {
     items: [
       {
         name: "Logo & Wordmark",
-        preview: "https://via.placeholder.com/600x340/bf5430/ffffff?text=Logo+System",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%23bf5430'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3ELogo System%3C/text%3E%3C/svg%3E",
         link: "#",
       },
       {
         name: "Color & Type Guide",
-        preview: "https://via.placeholder.com/600x340/3d7265/ffffff?text=Type+%26+Color",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%233d7265'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EType & Color%3C/text%3E%3C/svg%3E",
         link: "#",
       },
       {
         name: "Brand Usage Sheet",
-        preview: "https://via.placeholder.com/600x340/1a1815/ffffff?text=Brand+Sheet",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%231a1815'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EBrand Sheet%3C/text%3E%3C/svg%3E",
         link: "#",
       },
     ],
@@ -571,6 +561,7 @@ function openProject(id) {
   });
   projectPanel.setAttribute("aria-hidden", "false");
   projectClose.focus();
+  announce(`Viewing ${p.title}`);
 }
 
 function closeProject() {
@@ -579,6 +570,7 @@ function closeProject() {
   projectPanel.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   setTimeout(() => { projectOverlay.style.display = "none"; }, 400);
+  announce("Project closed");
 }
 
 document.querySelectorAll(".work-card[data-project]").forEach(card => {
