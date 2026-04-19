@@ -365,18 +365,46 @@ if (backTop) {
   });
 }
 
+/* ── Skill bar animation ─────────────────────────────────────── */
+const skillsBelt = document.querySelector(".skills-grid");
+if (skillsBelt) {
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll(".skill-bar-fill").forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.width = (bar.dataset.w || 0) + "%";
+          }, i * 80);
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  barObserver.observe(skillsBelt);
+}
+
 /* ── Active nav link on scroll ───────────────────────────────── */
 const sections   = document.querySelectorAll("section[id], header[id]");
 const navLinks   = document.querySelectorAll(".nav-links a[href^='#']");
+
+let currentActive = null;
+
 const activeObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
+      const id = e.target.id;
+      if (currentActive === id) return;
+      currentActive = id;
       navLinks.forEach(a => {
-        a.classList.toggle("nav-active", a.getAttribute("href") === `#${e.target.id}`);
+        a.classList.toggle("nav-active", a.getAttribute("href") === `#${id}`);
       });
     }
   });
-}, { threshold: 0.4 });
+}, {
+  rootMargin: "-40% 0px -55% 0px",
+  threshold: 0
+});
+
 sections.forEach(s => activeObserver.observe(s));
 
 /* ── Smooth anchor scroll ────────────────────────────────────── */
@@ -412,6 +440,104 @@ if ("loading" in HTMLImageElement.prototype) {
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.documentElement.classList.add("reduced-motion");
 }
+
+/* ── Hero particles canvas ───────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById("heroParticles");
+  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = canvas.getContext("2d");
+  const hero = canvas.closest(".hero");
+  let W, H, particles;
+
+  const accent  = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#bf5430";
+  const accent2 = getComputedStyle(document.documentElement).getPropertyValue("--accent2").trim() || "#3d7265";
+
+  function resize() {
+    W = canvas.width  = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+
+  function makeParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 1 + Math.random() * 2.5,
+      dx: (Math.random() - 0.5) * 0.25,
+      dy: -0.15 - Math.random() * 0.2,
+      opacity: 0.15 + Math.random() * 0.35,
+      color: Math.random() > 0.5 ? accent : accent2,
+      shape: Math.random() > 0.7 ? "star" : "circle",
+      life: 0,
+      maxLife: 200 + Math.random() * 300,
+    };
+  }
+
+  function drawStar(cx, cy, r) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.beginPath();
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2;
+      ctx.moveTo(0, 0);
+      ctx.lineTo(Math.cos(angle) * r * 2, Math.sin(angle) * r * 2);
+    }
+    ctx.restore();
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: 28 }, makeParticle);
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+
+    particles.forEach((p, i) => {
+      p.x += p.dx;
+      p.y += p.dy;
+      p.life++;
+
+      const lifeRatio = p.life / p.maxLife;
+      const fade = lifeRatio < 0.1 ? lifeRatio / 0.1 : lifeRatio > 0.8 ? 1 - (lifeRatio - 0.8) / 0.2 : 1;
+      const alpha = p.opacity * fade * (isDark ? 0.6 : 0.45);
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 1;
+
+      if (p.shape === "star") {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.beginPath();
+        for (let j = 0; j < 4; j++) {
+          const ang = (j / 4) * Math.PI * 2;
+          if (j === 0) ctx.moveTo(Math.cos(ang) * p.r * 2.5, Math.sin(ang) * p.r * 2.5);
+          else ctx.lineTo(Math.cos(ang) * p.r * 2.5, Math.sin(ang) * p.r * 2.5);
+        }
+        ctx.stroke();
+        ctx.restore();
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (p.life >= p.maxLife || p.y < -10 || p.x < -10 || p.x > W + 10) {
+        particles[i] = makeParticle();
+        particles[i].y = H + 10;
+      }
+    });
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(tick);
+  }
+
+  init();
+  tick();
+  window.addEventListener("resize", () => { resize(); }, { passive: true });
+})();
 
 /* ── Project detail modal ────────────────────────────────────── */
 const projects = {
@@ -596,3 +722,63 @@ document.getElementById("ytClose")?.addEventListener("click", closeYTPlayer);
 document.getElementById("ytModal")?.addEventListener("click", e => {
   if (e.target === e.currentTarget) closeYTPlayer();
 });
+
+/* ── Contact form ────────────────────────────────────────────── */
+(function() {
+  const pills = document.querySelectorAll(".subj-pill");
+  let selectedSubject = "Web Project";
+
+  pills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      pills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      selectedSubject = pill.dataset.value;
+    });
+  });
+
+  const nameInput  = document.getElementById("contactName");
+  const emailInput = document.getElementById("contactEmail");
+  const msgInput   = document.getElementById("contactMsg");
+  const submitBtn  = document.getElementById("contactSubmit");
+
+  function validate() {
+    let ok = true;
+    document.getElementById("nameErr").textContent = "";
+    document.getElementById("emailErr").textContent = "";
+    document.getElementById("msgErr").textContent = "";
+    nameInput?.classList.remove("error");
+    emailInput?.classList.remove("error");
+    msgInput?.classList.remove("error");
+
+    if (!nameInput?.value.trim()) {
+      document.getElementById("nameErr").textContent = "Name is required.";
+      nameInput?.classList.add("error");
+      ok = false;
+    }
+    const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRx.test(emailInput?.value ?? "")) {
+      document.getElementById("emailErr").textContent = "Enter a valid email.";
+      emailInput?.classList.add("error");
+      ok = false;
+    }
+    if ((msgInput?.value.trim().length ?? 0) < 10) {
+      document.getElementById("msgErr").textContent = "Message must be at least 10 characters.";
+      msgInput?.classList.add("error");
+      ok = false;
+    }
+    return ok;
+  }
+
+  submitBtn?.addEventListener("click", () => {
+    if (!validate()) return;
+    // Simulate async send
+    submitBtn.textContent = "Sending…";
+    submitBtn.disabled = true;
+    setTimeout(() => {
+      document.getElementById("contactFormInner").style.display = "none";
+      const success = document.getElementById("formSuccess");
+      if (success) success.hidden = false;
+      announce("Message sent successfully!");
+    }, 900);
+  });
+})();
