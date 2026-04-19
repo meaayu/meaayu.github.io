@@ -441,7 +441,169 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.documentElement.classList.add("reduced-motion");
 }
 
-/* ── Hero particles canvas ───────────────────────────────────── */
+/* ── Background ambient particles ────────────────────────────── */
+(function () {
+  const canvas = document.getElementById("bgParticles");
+  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = canvas.getContext("2d");
+  let W, H, particles;
+
+  function getColors() {
+    const s = getComputedStyle(document.documentElement);
+    return {
+      accent:  s.getPropertyValue("--accent").trim()  || "#bf5430",
+      accent2: s.getPropertyValue("--accent2").trim() || "#3d7265",
+      muted:   s.getPropertyValue("--muted").trim()   || "#6a6158",
+      ink:     s.getPropertyValue("--ink").trim()     || "rgba(26,24,21,0.16)",
+    };
+  }
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  // Shape types: circle, dot, cross (✦), ring, dash
+  const SHAPES = ["circle", "dot", "cross", "ring", "dash"];
+
+  function makeParticle(cols) {
+    const colorArr = [cols.accent, cols.accent2, cols.muted];
+    const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+    const isSmall = shape === "dot" || shape === "dash";
+    return {
+      x:       Math.random() * W,
+      y:       Math.random() * H,
+      r:       isSmall ? 1 + Math.random() * 1.5 : 2 + Math.random() * 3.5,
+      dx:      (Math.random() - 0.5) * 0.18,
+      dy:      -0.08 - Math.random() * 0.14,
+      rot:     Math.random() * Math.PI * 2,
+      drot:    (Math.random() - 0.5) * 0.006,
+      opacity: 0.06 + Math.random() * 0.13,
+      color:   colorArr[Math.floor(Math.random() * colorArr.length)],
+      shape,
+      life:    Math.random() * 400,
+      maxLife: 350 + Math.random() * 500,
+    };
+  }
+
+  function drawParticle(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.strokeStyle = p.color;
+    ctx.fillStyle   = p.color;
+    ctx.lineWidth   = 1;
+
+    switch (p.shape) {
+      case "circle":
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case "dot":
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+      case "ring":
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+        break;
+      case "cross": {
+        // ✦ 4-point sparkle
+        const s = p.r * 2.2;
+        ctx.lineWidth = 0.9;
+        ctx.beginPath();
+        ctx.moveTo(-s, 0); ctx.lineTo(s, 0);
+        ctx.moveTo(0, -s); ctx.lineTo(0, s);
+        // diagonal arms (shorter)
+        const d = s * 0.5;
+        ctx.moveTo(-d, -d); ctx.lineTo(d, d);
+        ctx.moveTo(d, -d);  ctx.lineTo(-d, d);
+        ctx.stroke();
+        break;
+      }
+      case "dash": {
+        const len = p.r * 3;
+        ctx.lineWidth = 0.8;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(-len, 0);
+        ctx.lineTo(len, 0);
+        ctx.stroke();
+        break;
+      }
+    }
+    ctx.restore();
+  }
+
+  function init() {
+    resize();
+    const cols = getColors();
+    // ~48 particles spread across full page
+    particles = Array.from({ length: 48 }, () => makeParticle(cols));
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const cols   = getColors();
+
+    particles.forEach((p, i) => {
+      p.x   += p.dx;
+      p.y   += p.dy;
+      p.rot += p.drot;
+      p.life++;
+
+      const lifeRatio = p.life / p.maxLife;
+      const fade = lifeRatio < 0.12
+        ? lifeRatio / 0.12
+        : lifeRatio > 0.78
+        ? 1 - (lifeRatio - 0.78) / 0.22
+        : 1;
+
+      ctx.globalAlpha = p.opacity * fade * (isDark ? 0.75 : 0.55);
+      drawParticle(p);
+
+      // Respawn when out of bounds or life exhausted
+      if (p.life >= p.maxLife || p.y < -20 || p.x < -20 || p.x > W + 20) {
+        const np = makeParticle(cols);
+        // Respawn from bottom or side edges
+        const edge = Math.random();
+        if (edge < 0.6) { np.x = Math.random() * W; np.y = H + 10; }
+        else if (edge < 0.8) { np.x = -10; np.y = Math.random() * H; np.dx = Math.abs(np.dx); }
+        else { np.x = W + 10; np.y = Math.random() * H; np.dx = -Math.abs(np.dx); }
+        np.life = 0;
+        particles[i] = np;
+      }
+    });
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(tick);
+  }
+
+  init();
+  tick();
+
+  let resizeRaf;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => resize());
+  }, { passive: true });
+
+  // Re-read colors on theme change
+  document.documentElement.addEventListener("themechange", () => {
+    const cols = getColors();
+    particles.forEach(p => {
+      const colorArr = [cols.accent, cols.accent2, cols.muted];
+      p.color = colorArr[Math.floor(Math.random() * colorArr.length)];
+    });
+  });
+})();
+
+
 (function() {
   const canvas = document.getElementById("heroParticles");
   if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
