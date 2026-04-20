@@ -2210,6 +2210,11 @@ footer {
         padding: 1.75rem 1.5rem;
     }
 }
+@media (max-width: 768px) {
+    h1 {
+        font-size: clamp(3.2rem, 11vw, 4.8rem);
+    }
+}
 @media (max-width: 480px) {
     .hero-actions {
         gap: 0.75rem;
@@ -2235,7 +2240,7 @@ footer {
     }
     .stat-item:last-child { border-bottom: none; }
     h1 {
-        font-size: clamp(2.6rem, 10vw, 3.5rem);
+        font-size: clamp(3rem, 12vw, 4.2rem);
     }
     .contact-big-cta {
         font-size: 1.9rem;
