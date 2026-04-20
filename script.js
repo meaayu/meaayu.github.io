@@ -483,7 +483,7 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       dy:      -0.08 - Math.random() * 0.14,
       rot:     Math.random() * Math.PI * 2,
       drot:    (Math.random() - 0.5) * 0.006,
-      opacity: 0.06 + Math.random() * 0.13,
+      opacity: 0.18 + Math.random() * 0.32,
       color:   colorArr[Math.floor(Math.random() * colorArr.length)],
       shape,
       life:    Math.random() * 400,
@@ -547,8 +547,8 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   function init() {
     resize();
     const cols = getColors();
-    // ~48 particles spread across full page
-    particles = Array.from({ length: 48 }, () => makeParticle(cols));
+    // ~50 particles spread across full page
+    particles = Array.from({ length: 50 }, () => makeParticle(cols));
   }
 
   function tick() {
@@ -569,7 +569,7 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         ? 1 - (lifeRatio - 0.78) / 0.22
         : 1;
 
-      ctx.globalAlpha = p.opacity * fade * (isDark ? 0.75 : 0.55);
+      ctx.globalAlpha = p.opacity * fade * (isDark ? 1 : 0.85);
       drawParticle(p);
 
       // Respawn when out of bounds or life exhausted
@@ -731,7 +731,7 @@ const projects = {
     ],
   },
   2: {
-    title: "Short Film Animation",
+    title: "Hand Drawn Animation",
     desc: "Hand-drawn 2D animation exploring motion, emotion, and negative space.",
     tags: ["Animation", "Storyboarding"],
     items: [
@@ -766,6 +766,28 @@ const projects = {
       {
         name: "Brand Usage Sheet",
         preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%231a1815'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EBrand Sheet%3C/text%3E%3C/svg%3E",
+        link: "#",
+      },
+    ],
+  },
+  4: {
+    title: "Art Showcase",
+    desc: "A curated collection of original illustrations, sketches, and mixed-media artwork spanning character design, environments, and experimental pieces.",
+    tags: ["Illustration", "Concept Art", "Mixed Media"],
+    items: [
+      {
+        name: "Character Illustrations",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%23bf5430'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3ECharacter Art%3C/text%3E%3C/svg%3E",
+        link: "#",
+      },
+      {
+        name: "Environment Sketches",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%233d7265'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EEnvironments%3C/text%3E%3C/svg%3E",
+        link: "#",
+      },
+      {
+        name: "Mixed Media Experiments",
+        preview: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340'%3E%3Crect width='600' height='340' fill='%231a1815'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='18' fill='%23fff' opacity='0.8'%3EMixed Media%3C/text%3E%3C/svg%3E",
         link: "#",
       },
     ],
@@ -989,4 +1011,73 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
       announce("Message sent successfully!");
     }, 900);
   });
+})();
+
+/* ── Work category filters ───────────────────────────────────── */
+(function() {
+  const filters  = document.querySelectorAll(".work-filter");
+  const cards    = document.querySelectorAll(".work-card[data-category]");
+  if (!filters.length || !cards.length) return;
+
+  filters.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // Update active state
+      filters.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const active = btn.dataset.filter;
+
+      cards.forEach(card => {
+        const cat = card.dataset.category || "";
+        const show = active === "all" || cat === active;
+
+        if (show) {
+          delete card.dataset.hidden;
+          card.classList.remove("filter-in");
+          // Force reflow then animate in
+          void card.offsetWidth;
+          card.classList.add("filter-in");
+          // Clean up animation class after it plays
+          setTimeout(() => card.classList.remove("filter-in"), 350);
+        } else {
+          card.dataset.hidden = "1";
+        }
+      });
+
+      // Re-sync sketchy borders after layout change
+      setTimeout(syncSketchy, 360);
+      announce(`Showing ${active === "all" ? "all work" : active + " projects"}`);
+    });
+  });
+})();
+
+/* ── Hero art: trigger draw animations when in view ─────────── */
+(function() {
+  const art = document.querySelector(".hero-art");
+  if (!art) return;
+
+  // Set initial stroke-dashoffset on elements that need it
+  art.querySelectorAll(".hero-draw").forEach(el => {
+    const dash = el.style.strokeDasharray || el.getAttribute("stroke-dasharray") || "230";
+    el.style.strokeDashoffset = dash;
+  });
+  art.querySelectorAll(".hero-fadein").forEach(el => {
+    el.style.opacity = "0";
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      // Trigger CSS animations by removing inline overrides
+      art.querySelectorAll(".hero-draw").forEach(el => {
+        el.style.animation = "";
+      });
+      art.querySelectorAll(".hero-fadein").forEach(el => {
+        el.style.animation = "";
+      });
+      observer.unobserve(art);
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(art);
 })();

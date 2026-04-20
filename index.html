@@ -197,6 +197,21 @@
             <!-- HERO -->
             <header class="hero" id="hero">
                 <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+                <!-- Floating doodles -->
+                <div class="hero-doodles" aria-hidden="true">
+                    <svg class="doodle doodle-1" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="1.4" opacity="0.22" stroke-dasharray="5 6"/>
+                    </svg>
+                    <svg class="doodle doodle-2" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4 L24 16 L36 16 L26 24 L30 36 L20 28 L10 36 L14 24 L4 16 L16 16 Z" fill="none" stroke="var(--accent2)" stroke-width="1.2" opacity="0.28"/>
+                    </svg>
+                    <svg class="doodle doodle-3" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="34" height="34" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.18" transform="rotate(15 25 25)"/>
+                    </svg>
+                    <svg class="doodle doodle-4" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 3 Q27 15 15 27 Q3 15 15 3Z" fill="none" stroke="var(--accent2)" stroke-width="1.2" opacity="0.25"/>
+                    </svg>
+                </div>
                 <div class="hero-content">
                     <span class="hero-eyebrow">Developer &amp; Artist</span>
                     <h1>
@@ -248,113 +263,120 @@
                     </div>
                 </div>
                 <div class="hero-art" aria-hidden="true">
-                    <svg
-                        viewBox="0 0 260 260"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <g class="blob-outer">
-                            <ellipse
-                                cx="130"
-                                cy="130"
-                                rx="108"
-                                ry="104"
-                                fill="var(--accent)"
-                                opacity="0.06"
-                            />
+                    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="dotgrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <circle cx="1" cy="1" r="1" fill="var(--accent)" opacity="0.15"/>
+                            </pattern>
+                        </defs>
+
+                        <!-- Dot grid bg -->
+                        <rect width="300" height="300" fill="url(#dotgrid)" rx="20"/>
+
+                        <!-- ─── Large accent circle (bottom-right, partially clipped) ─── -->
+                        <clipPath id="artclip"><rect width="300" height="300" rx="20"/></clipPath>
+                        <g clip-path="url(#artclip)">
+                            <circle cx="248" cy="252" r="110" fill="var(--accent)" opacity="0.10"/>
+                            <circle cx="248" cy="252" r="72" fill="var(--accent)" opacity="0.12"/>
                         </g>
-                        <g class="blob-inner">
-                            <ellipse
-                                cx="130"
-                                cy="130"
-                                rx="90"
-                                ry="52"
-                                fill="none"
-                                stroke="var(--accent)"
-                                stroke-width="1.2"
-                                stroke-opacity="0.2"
-                                stroke-dasharray="6 5"
-                            />
-                        </g>
-                        <line
-                            class="hero-line"
-                            x1="52"
-                            y1="180"
-                            x2="208"
-                            y2="80"
-                            stroke="var(--accent)"
-                            stroke-width="1.4"
-                            stroke-linecap="round"
-                            stroke-opacity="0.35"
-                        />
-                        <path
-                            class="hero-line2"
-                            d="M70 80 Q130 30 190 80 Q230 120 190 180 Q130 230 70 180 Q30 140 70 80Z"
-                            fill="none"
-                            stroke="var(--text)"
-                            stroke-width="1.6"
-                            stroke-linecap="round"
-                            stroke-opacity="0.12"
-                        />
-                        <path
-                            class="hero-line3"
-                            d="M100 115 Q130 90 160 115 Q175 135 160 155 Q130 175 100 155 Q85 135 100 115Z"
-                            fill="none"
-                            stroke="var(--accent)"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-opacity="0.45"
-                        />
-                        <text
-                            x="115"
-                            y="138"
-                            font-family="Caveat,cursive"
-                            font-size="28"
-                            fill="var(--accent)"
-                            opacity="0.7"
-                        >
-                            ✦
-                        </text>
-                        <text
-                            x="46"
-                            y="72"
-                            font-family="Caveat,cursive"
-                            font-size="13"
-                            fill="var(--muted)"
-                            opacity="0.55"
-                        >
-                            01
-                        </text>
-                        <text
-                            x="193"
-                            y="195"
-                            font-family="Caveat,cursive"
-                            font-size="13"
-                            fill="var(--muted)"
-                            opacity="0.55"
-                        >
-                            ∞
-                        </text>
-                        <text
-                            x="47"
-                            y="200"
-                            font-family="Caveat,cursive"
-                            font-size="12"
-                            fill="var(--accent2)"
-                            opacity="0.6"
-                        >
-                            art
-                        </text>
-                        <text
-                            x="188"
-                            y="72"
-                            font-family="Caveat,cursive"
-                            font-size="12"
-                            fill="var(--accent2)"
-                            opacity="0.6"
-                        >
-                            dev
-                        </text>
+
+                        <!-- ─── Code editor card (top half) ─── -->
+                        <rect x="22" y="22" width="172" height="126" rx="10"
+                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
+                        <!-- Titlebar -->
+                        <rect x="22" y="22" width="172" height="22" rx="10"
+                              fill="var(--border)" opacity="0.7"/>
+                        <rect x="22" y="33" width="172" height="11" fill="var(--border)" opacity="0.7"/>
+                        <!-- Traffic lights -->
+                        <circle cx="36" cy="33" r="4" fill="var(--accent)" opacity="0.75"/>
+                        <circle cx="50" cy="33" r="4" fill="var(--accent2)" opacity="0.65"/>
+                        <circle cx="64" cy="33" r="4" fill="var(--border-strong)" opacity="0.8"/>
+
+                        <!-- Code lines (syntax-coloured) -->
+                        <!-- line 1 -->
+                        <rect x="34" y="55" width="28" height="7" rx="3" fill="var(--accent2)" opacity="0.65"/>
+                        <rect x="68" y="55" width="46" height="7" rx="3" fill="var(--muted)" opacity="0.35"/>
+                        <rect x="120" y="55" width="20" height="7" rx="3" fill="var(--accent)" opacity="0.55"/>
+                        <!-- line 2 -->
+                        <rect x="44" y="70" width="18" height="7" rx="3" fill="var(--accent)" opacity="0.5"/>
+                        <rect x="68" y="70" width="54" height="7" rx="3" fill="var(--muted)" opacity="0.25"/>
+                        <rect x="128" y="70" width="30" height="7" rx="3" fill="var(--accent2)" opacity="0.5"/>
+                        <!-- line 3 -->
+                        <rect x="44" y="85" width="36" height="7" rx="3" fill="var(--accent2)" opacity="0.45"/>
+                        <rect x="86" y="85" width="22" height="7" rx="3" fill="var(--muted)" opacity="0.3"/>
+                        <!-- line 4 -->
+                        <rect x="44" y="100" width="58" height="7" rx="3" fill="var(--muted)" opacity="0.22"/>
+                        <rect x="108" y="100" width="24" height="7" rx="3" fill="var(--accent)" opacity="0.42"/>
+                        <!-- line 5: cursor blink -->
+                        <rect x="34" y="115" width="12" height="7" rx="3" fill="var(--text)" opacity="0.55" class="art-cursor"/>
+                        <!-- line number gutter -->
+                        <rect x="22" y="44" width="8" height="104" fill="var(--border)" opacity="0.35"/>
+                        <rect x="26" y="57" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.35"/>
+                        <rect x="26" y="72" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.28"/>
+                        <rect x="26" y="87" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.22"/>
+                        <rect x="26" y="102" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.18"/>
+                        <rect x="26" y="117" width="4" height="5" rx="1" fill="var(--accent)" opacity="0.55"/>
+
+                        <!-- ─── Colour palette card (bottom-left) ─── -->
+                        <rect x="22" y="162" width="120" height="116" rx="10"
+                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
+                        <!-- palette title -->
+                        <text x="82" y="182" font-family="Caveat,cursive" font-size="12"
+                              fill="var(--muted)" text-anchor="middle" opacity="0.7">palette</text>
+                        <!-- swatches row 1 -->
+                        <rect x="34" y="192" width="24" height="24" rx="6" fill="var(--accent)" opacity="0.85"/>
+                        <rect x="64" y="192" width="24" height="24" rx="6" fill="var(--accent2)" opacity="0.85"/>
+                        <rect x="94" y="192" width="24" height="24" rx="6" fill="var(--accent3)" opacity="0.7"/>
+                        <!-- swatches row 2 -->
+                        <rect x="34" y="222" width="24" height="24" rx="6" fill="var(--text)" opacity="0.45"/>
+                        <rect x="64" y="222" width="24" height="24" rx="6" fill="var(--muted)" opacity="0.45"/>
+                        <rect x="94" y="222" width="24" height="24" rx="6" fill="var(--border-strong)" opacity="0.7"/>
+                        <!-- brush strokes below swatches -->
+                        <path d="M34 256 Q52 250 70 258 Q88 264 106 256 Q118 251 128 256"
+                              fill="none" stroke="var(--accent)" stroke-width="3"
+                              stroke-linecap="round" opacity="0.45"/>
+                        <path d="M34 265 Q52 260 70 268 Q88 274 106 265"
+                              fill="none" stroke="var(--accent2)" stroke-width="2.5"
+                              stroke-linecap="round" opacity="0.35"/>
+
+                        <!-- ─── Star / brand mark (center-right zone) ─── -->
+                        <text x="210" y="118" font-family="Caveat,cursive" font-size="68"
+                              font-weight="700" fill="var(--accent)" text-anchor="middle"
+                              opacity="0.82" class="art-star">✦</text>
+
+                        <!-- ─── Typography tester card (right side, tall) ─── -->
+                        <rect x="207" y="148" width="72" height="130" rx="10"
+                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
+                        <text x="243" y="168" font-family="Caveat,cursive" font-size="14"
+                              font-weight="700" fill="var(--text)" text-anchor="middle" opacity="0.8">Aa</text>
+                        <line x1="218" y1="176" x2="268" y2="176" stroke="var(--border)" stroke-width="0.8"/>
+                        <rect x="218" y="183" width="50" height="5" rx="2" fill="var(--muted)" opacity="0.28"/>
+                        <rect x="218" y="194" width="38" height="5" rx="2" fill="var(--muted)" opacity="0.20"/>
+                        <rect x="218" y="205" width="44" height="5" rx="2" fill="var(--muted)" opacity="0.16"/>
+                        <!-- Mini colour dots -->
+                        <circle cx="225" cy="224" r="7" fill="var(--accent)" opacity="0.7"/>
+                        <circle cx="243" cy="224" r="7" fill="var(--accent2)" opacity="0.7"/>
+                        <circle cx="261" cy="224" r="7" fill="var(--accent3)" opacity="0.55"/>
+                        <!-- Wavy line -->
+                        <path d="M218 242 Q226 237 234 242 Q242 247 250 242 Q258 237 268 242"
+                              fill="none" stroke="var(--accent)" stroke-width="1.8"
+                              stroke-linecap="round" opacity="0.4"/>
+                        <!-- small sparkle -->
+                        <text x="243" y="268" font-family="Caveat,cursive" font-size="14"
+                              fill="var(--accent2)" text-anchor="middle" opacity="0.65">✦</text>
+
+                        <!-- ─── Connecting dashed line between cards ─── -->
+                        <line x1="194" y1="85" x2="207" y2="148"
+                              stroke="var(--accent)" stroke-width="1"
+                              stroke-dasharray="4 4" opacity="0.35"/>
+
+                        <!-- ─── Hand-lettered label ─── -->
+                        <text x="158" y="290" font-family="Caveat,cursive" font-size="13"
+                              font-weight="700" fill="var(--muted)" text-anchor="middle"
+                              letter-spacing="0.08em" opacity="0.6">code × art × motion</text>
                     </svg>
+                    <!-- Floating badge -->
+                    <div class="hero-art-badge">available ✦</div>
                 </div>
             </header>
 
@@ -435,8 +457,16 @@
             <!-- WORK -->
             <section id="work">
                 <h2>Selected Work</h2>
+                <!-- Filter tabs -->
+                <div class="work-filters" role="group" aria-label="Filter work by category">
+                    <button class="work-filter active" data-filter="all">All</button>
+                    <button class="work-filter" data-filter="Web Dev">Dev</button>
+                    <button class="work-filter" data-filter="Animation">Motion</button>
+                    <button class="work-filter" data-filter="Illustration">Art</button>
+                    <button class="work-filter" data-filter="Graphic Design">Design</button>
+                </div>
                 <div class="grid">
-                    <div class="card work-card sk-wrap reveal reveal-d1" data-project="1" role="button" tabindex="0" aria-label="View Interactive Portfolio Site details">
+                    <div class="card work-card sk-wrap reveal reveal-d1" data-project="1" data-category="Web Dev" role="button" tabindex="0" aria-label="View Interactive Portfolio Site details">
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -530,6 +560,7 @@
                             </svg>
                         </div>
                         <div class="work-meta">
+                            <div class="work-featured-badge">✦ Featured</div>
                             <h3>Interactive Portfolio Site</h3>
                             <p>
                                 A hand-crafted web experience merging sketchy
@@ -543,7 +574,7 @@
                         </div>
                     </div>
 
-                    <div class="card work-card sk-wrap reveal reveal-d2" data-project="2" role="button" tabindex="0" aria-label="View Short Film Animation details">
+                    <div class="card work-card sk-wrap reveal reveal-d2" data-project="2" data-category="Animation" role="button" tabindex="0" aria-label="View Hand Drawn Animation details">
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -609,7 +640,7 @@
                             </svg>
                         </div>
                         <div class="work-meta">
-                            <h3>Short Film Animation</h3>
+                            <h3>Hand Drawn Animation</h3>
                             <p>
                                 Hand-drawn 2D animation exploring motion,
                                 emotion, and negative space.
@@ -621,7 +652,7 @@
                         </div>
                     </div>
 
-                    <div class="card work-card sk-wrap reveal reveal-d3" data-project="3" role="button" tabindex="0" aria-label="View Brand Identity System details">
+                    <div class="card work-card sk-wrap reveal reveal-d3" data-project="3" data-category="Graphic Design" role="button" tabindex="0" aria-label="View Brand Identity System details">
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -722,6 +753,51 @@
                         </div>
                     </div>
 
+                    <div class="card work-card sk-wrap reveal reveal-d1" data-project="4" data-category="Illustration" role="button" tabindex="0" aria-label="View Art Showcase details">
+                        <svg class="sk-svg" aria-hidden="true">
+                            <rect rx="6" />
+                        </svg>
+                        <div class="work-thumb">
+                            <svg
+                                viewBox="0 0 320 180"
+                                xmlns="http://www.w3.org/2000/svg"
+                                preserveAspectRatio="xMidYMid slice"
+                            >
+                                <rect width="320" height="180" fill="var(--bg)" />
+                                <!-- Canvas frame -->
+                                <rect x="30" y="20" width="120" height="140" rx="3" fill="var(--border)" opacity="0.15" stroke="var(--border)" stroke-width="1.2" />
+                                <!-- Landscape sketch inside frame -->
+                                <ellipse cx="90" cy="110" rx="38" ry="14" fill="var(--accent2)" opacity="0.25" />
+                                <path d="M50 100 Q70 70 90 85 Q110 60 130 100" stroke="var(--accent2)" stroke-width="1.5" fill="none" opacity="0.6" />
+                                <circle cx="75" cy="50" r="12" fill="var(--accent)" opacity="0.18" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.5" />
+                                <!-- Pencil icon -->
+                                <g transform="translate(175,30) rotate(30)">
+                                    <rect x="-4" y="-28" width="8" height="40" rx="2" fill="var(--accent)" opacity="0.55" />
+                                    <polygon points="-4,12 4,12 0,22" fill="var(--text)" opacity="0.5" />
+                                    <rect x="-4" y="-32" width="8" height="6" rx="1" fill="var(--border)" />
+                                </g>
+                                <!-- Scattered sketch marks -->
+                                <path d="M180 90 Q195 80 210 95 Q225 110 240 85" stroke="var(--muted)" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round" />
+                                <path d="M185 115 Q205 108 225 118" stroke="var(--muted)" stroke-width="1" fill="none" opacity="0.35" stroke-linecap="round" />
+                                <path d="M190 135 Q210 128 230 140" stroke="var(--muted)" stroke-width="1" fill="none" opacity="0.3" stroke-linecap="round" />
+                                <!-- Star accent -->
+                                <text x="265" y="155" font-family="Caveat,cursive" font-size="28" fill="var(--accent)" opacity="0.45">✦</text>
+                            </svg>
+                        </div>
+                        <div class="work-meta">
+                            <h3>Art Showcase</h3>
+                            <p>
+                                Original illustrations, sketches, and mixed-media
+                                artwork spanning character design and environments.
+                            </p>
+                            <div class="tags">
+                                <span class="tag">Illustration</span
+                                ><span class="tag">Concept Art</span
+                                ><span class="tag">Mixed Media</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
             <section id="about">
@@ -745,7 +821,7 @@
                                 <span class="stat-label">Years making</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-num">0+</span>
+                                <span class="stat-num" data-count="12">12+</span>
                                 <span class="stat-label">Projects shipped</span>
                             </div>
                             <div class="stat-item">
@@ -779,10 +855,11 @@
                             hear from you.
                         </p>
                         <div class="contact-email-action">
-                            <button class="copy-email-btn" id="copyEmailBtn" aria-label="Copy email address">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            <button class="copy-email-btn sk-wrap" id="copyEmailBtn" aria-label="Copy email address">
+                                <svg class="sk-svg" aria-hidden="true"><rect rx="99"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                 <span class="copy-email-text">aayu@example.com</span>
-                                <span class="copy-email-confirm">Copied!</span>
+                                <span class="copy-email-confirm" aria-hidden="true">✓ Copied!</span>
                             </button>
                         </div>
                         <div class="socials">
