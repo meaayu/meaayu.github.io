@@ -1,4 +1,302 @@
-/* ── PROGRESS BAR ────────────────────────────────────────────── */
+/* ── HERO NAME SHIMMER ───────────────────────────────────────── */
+.hero-name {
+    font-style: normal;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(
+        100deg,
+        var(--accent) 0%,
+        var(--accent) 35%,
+        color-mix(in srgb, var(--accent2) 80%, var(--accent)) 50%,
+        var(--accent) 65%,
+        var(--accent) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: name-shimmer 3.5s linear infinite 1.5s;
+}
+@keyframes name-shimmer {
+    0%   { background-position: 0% center; }
+    100% { background-position: -200% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-name { animation: none; -webkit-text-fill-color: var(--accent); }
+}
+
+/* ── SKILL BAR PERCENTAGE ────────────────────────────────────── */
+.skill-bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 0.4rem 0.5rem;
+}
+.skill-bar-track {
+    grid-column: 1 / 3;
+}
+.skill-bar-pct {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.9s;
+    min-width: 2.2em;
+    text-align: right;
+}
+.skills-grid .skill-card.reveal.in .skill-bar-pct,
+.skill-bar-fill[style*="width"] ~ .skill-bar-pct {
+    opacity: 0.75;
+}
+
+/* Override old skill-bar-row flex with grid */
+.skill-bar-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.18rem 0.5rem;
+}
+.skill-bar-name {
+    grid-column: 1;
+    grid-row: 1;
+}
+.skill-bar-pct {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.5s ease 1s;
+    letter-spacing: 0.02em;
+}
+.skill-bar-track {
+    grid-column: 1 / 3;
+    grid-row: 2;
+}
+
+/* ── COPY EMAIL BUTTON ───────────────────────────────────────── */
+.contact-email-action {
+    margin-bottom: 1.5rem;
+}
+.copy-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.copy-email-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+.copy-email-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+}
+.copy-email-confirm {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent2);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 99px;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+.copy-email-btn.copied .copy-email-confirm {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ── CHAR COUNTER ────────────────────────────────────────────── */
+.char-counter {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.68rem;
+    color: var(--muted);
+    opacity: 0.5;
+    text-align: right;
+    margin-top: 0.2rem;
+    transition: color 0.2s, opacity 0.2s;
+}
+.char-counter.warn {
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+/* ── NAV ACTIVE INDICATOR IMPROVEMENT ───────────────────────── */
+.nav-links a {
+    position: relative;
+}
+.nav-links a.nav-active::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+/* ── WORK CARD HOVER IMPROVEMENT ─────────────────────────────── */
+.work-thumb::after {
+    font-family: "Caveat", cursive;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--accent) 92%, transparent),
+        color-mix(in srgb, var(--accent2) 70%, var(--accent))
+    );
+}
+
+/* ── FORM SUBMIT LOADING STATE ───────────────────────────────── */
+.form-submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+.form-submit.sending {
+    pointer-events: none;
+}
+.form-submit.sending::after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-left: 0.35rem;
+    flex-shrink: 0;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── SKILL CARD SHIMMER ON HOVER ─────────────────────────────── */
+.skill-card {
+    isolation: isolate;
+}
+.skill-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--accent) 4%, transparent) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 0;
+}
+.skill-card:hover::before {
+    opacity: 1;
+}
+.skill-cluster-header,
+.skill-bars {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── FOOTER ENHANCEMENT ──────────────────────────────────────── */
+footer {
+    position: relative;
+}
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(200px, 40%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.4;
+}
+
+/* ── ABOUT QUOTE ENHANCED QUOTE MARK ────────────────────────── */
+.about-quote::before {
+    font-size: 6rem;
+    margin-bottom: 0.2rem;
+    line-height: 0.65;
+}
+
+/* ── MOBILE NAV FOOTER SOCIAL ICONS (if added) ───────────────── */
+.mobile-nav-footer {
+    gap: 0.75rem;
+}
+
+/* ── SCROLL HINT ANIMATION IMPROVEMENT ──────────────────────── */
+.hero-scroll-hint {
+    gap: 0.6rem;
+}
+.hero-scroll-hint svg {
+    opacity: 0.75;
+}
+
+/* ── IMPROVED FOCUS FOR PILLS ────────────────────────────────── */
+.subj-pill:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ── SKILL BAR FILL GRADIENT UPGRADE ────────────────────────── */
+.skill-bar-fill {
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--accent2) 40%, var(--accent)),
+        var(--accent)
+    );
+    position: relative;
+    overflow: hidden;
+}
+.skill-bar-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: bar-sheen 2.5s ease infinite 1.2s;
+}
+@keyframes bar-sheen {
+    0%   { left: -60%; }
+    100% { left: 160%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .skill-bar-fill::after { display: none; }
+}
+
+
 #progress-bar {
     position: fixed;
     top: 0;
@@ -166,8 +464,7 @@ body.cursor-hover #cursor-ring::after {
 }
 [data-theme="dark"] body {
     background-image:
-        radial-gradient(ellipse 75% 65% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.22) 100%),
-        radial-gradient(var(--border-strong) 1px, transparent 1px);
+        radial-gradient(ellipse 75% 65% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.22) 100%);
 }
 
 
@@ -201,9 +498,8 @@ body {
 
     background: var(--bg);
     background-image: 
-        radial-gradient(ellipse 75% 65% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.07) 100%),
-        radial-gradient(color-mix(in srgb, var(--border-strong) 90%, transparent) 1px, transparent 1px);
-    background-size: 100% 100%, 22px 22px;
+        radial-gradient(ellipse 75% 65% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.07) 100%);
+    background-size: 100% 100%;
     color: var(--text);
     line-height: 1.7;
     min-height: 100vh;

@@ -374,6 +374,11 @@ if (skillsBelt) {
         e.target.querySelectorAll(".skill-bar-fill").forEach((bar, i) => {
           setTimeout(() => {
             bar.style.width = (bar.dataset.w || 0) + "%";
+            // Reveal percentage label after bar animates
+            const pct = bar.closest(".skill-bar-row")?.querySelector(".skill-bar-pct");
+            if (pct) {
+              setTimeout(() => { pct.style.opacity = "0.75"; }, 600);
+            }
           }, i * 80);
         });
         barObserver.unobserve(e.target);
@@ -902,6 +907,45 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
   const emailInput = document.getElementById("contactEmail");
   const msgInput   = document.getElementById("contactMsg");
   const submitBtn  = document.getElementById("contactSubmit");
+  const charCount  = document.getElementById("charCount");
+  const charCounter = charCount?.closest(".char-counter");
+
+  // Character counter
+  if (msgInput && charCount) {
+    msgInput.addEventListener("input", () => {
+      const len = msgInput.value.length;
+      charCount.textContent = len;
+      if (charCounter) {
+        charCounter.classList.toggle("warn", len > 420);
+      }
+    });
+  }
+
+  // Copy email button
+  const copyBtn = document.getElementById("copyEmailBtn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      const email = copyBtn.querySelector(".copy-email-text")?.textContent?.trim();
+      if (!email) return;
+      navigator.clipboard.writeText(email).then(() => {
+        copyBtn.classList.add("copied");
+        announce("Email address copied!");
+        setTimeout(() => copyBtn.classList.remove("copied"), 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement("textarea");
+        ta.value = email;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        copyBtn.classList.add("copied");
+        setTimeout(() => copyBtn.classList.remove("copied"), 2000);
+      });
+    });
+  }
 
   function validate() {
     let ok = true;
@@ -935,8 +979,10 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
     if (!validate()) return;
     // Simulate async send
     submitBtn.textContent = "Sending…";
+    submitBtn.classList.add("sending");
     submitBtn.disabled = true;
     setTimeout(() => {
+      submitBtn.classList.remove("sending");
       document.getElementById("contactFormInner").style.display = "none";
       const success = document.getElementById("formSuccess");
       if (success) success.hidden = false;
