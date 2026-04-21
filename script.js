@@ -98,6 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
   updateRoleColors(html.getAttribute("data-theme") || "light");
 });
 
+/* ── Back to top (declare early so scroll handler can reference it) ── */
+const backTop = document.getElementById("backTop");
+if (backTop) {
+  backTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
 /* ── Scroll progress bar ────────────────────────────────────── */
 const progressBar = document.getElementById("progress-bar");
 let rafScheduled = false;
@@ -261,10 +269,12 @@ document.querySelectorAll("[data-count], .stat-num, .stat-number").forEach(el =>
 });
 
 /* ── Custom cursor ───────────────────────────────────────────── */
-const dot  = document.getElementById("cursor-dot");
-const ring = document.getElementById("cursor-ring");
+document.addEventListener("DOMContentLoaded", () => {
+  const dot  = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
 
-if (dot && ring && window.matchMedia("(hover: hover)").matches) {
+  if (!dot || !ring || !window.matchMedia("(hover: hover)").matches) return;
+
   document.addEventListener("mousemove", e => {
     const x = e.clientX, y = e.clientY;
     document.body.classList.add("cursor-active");
@@ -286,7 +296,7 @@ if (dot && ring && window.matchMedia("(hover: hover)").matches) {
     document.body.appendChild(r);
     r.addEventListener("animationend", () => r.remove(), { once: true });
   });
-}
+});
 
 /* ── 3D card tilt ────────────────────────────────────────────── */
 document.querySelectorAll(".card").forEach(card => {
@@ -356,14 +366,6 @@ document.querySelectorAll(".btn, .nav-cta").forEach(btn => {
     btn.style.transform = "";
   });
 });
-
-/* ── Back to top ─────────────────────────────────────────────── */
-const backTop = document.getElementById("backTop");
-if (backTop) {
-  backTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
 
 /* ── Skill bar animation ─────────────────────────────────────── */
 const skillsBelt = document.querySelector(".skills-grid");
@@ -446,265 +448,10 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   document.documentElement.classList.add("reduced-motion");
 }
 
-/* ── Background ambient particles ────────────────────────────── */
-(function () {
-  const canvas = document.getElementById("bgParticles");
-  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const ctx = canvas.getContext("2d");
-  let W, H, particles;
-
-  function getColors() {
-    const s = getComputedStyle(document.documentElement);
-    return {
-      accent:  s.getPropertyValue("--accent").trim()  || "#bf5430",
-      accent2: s.getPropertyValue("--accent2").trim() || "#3d7265",
-      muted:   s.getPropertyValue("--muted").trim()   || "#6a6158",
-      ink:     s.getPropertyValue("--ink").trim()     || "rgba(26,24,21,0.16)",
-    };
-  }
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-
-  // Shape types: circle, dot, cross (✦), ring, dash
-  const SHAPES = ["circle", "dot", "cross", "ring", "dash"];
-
-  function makeParticle(cols) {
-    const colorArr = [cols.accent, cols.accent2, cols.muted];
-    const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-    const isSmall = shape === "dot" || shape === "dash";
-    return {
-      x:       Math.random() * W,
-      y:       Math.random() * H,
-      r:       isSmall ? 1 + Math.random() * 1.5 : 2 + Math.random() * 3.5,
-      dx:      (Math.random() - 0.5) * 0.18,
-      dy:      -0.08 - Math.random() * 0.14,
-      rot:     Math.random() * Math.PI * 2,
-      drot:    (Math.random() - 0.5) * 0.006,
-      opacity: 0.18 + Math.random() * 0.32,
-      color:   colorArr[Math.floor(Math.random() * colorArr.length)],
-      shape,
-      life:    Math.random() * 400,
-      maxLife: 350 + Math.random() * 500,
-    };
-  }
-
-  function drawParticle(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-    ctx.strokeStyle = p.color;
-    ctx.fillStyle   = p.color;
-    ctx.lineWidth   = 1;
-
-    switch (p.shape) {
-      case "circle":
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-      case "dot":
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r * 0.6, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-      case "ring":
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-        break;
-      case "cross": {
-        // ✦ 4-point sparkle
-        const s = p.r * 2.2;
-        ctx.lineWidth = 0.9;
-        ctx.beginPath();
-        ctx.moveTo(-s, 0); ctx.lineTo(s, 0);
-        ctx.moveTo(0, -s); ctx.lineTo(0, s);
-        // diagonal arms (shorter)
-        const d = s * 0.5;
-        ctx.moveTo(-d, -d); ctx.lineTo(d, d);
-        ctx.moveTo(d, -d);  ctx.lineTo(-d, d);
-        ctx.stroke();
-        break;
-      }
-      case "dash": {
-        const len = p.r * 3;
-        ctx.lineWidth = 0.8;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        ctx.moveTo(-len, 0);
-        ctx.lineTo(len, 0);
-        ctx.stroke();
-        break;
-      }
-    }
-    ctx.restore();
-  }
-
-  function init() {
-    resize();
-    const cols = getColors();
-    // ~50 particles spread across full page
-    particles = Array.from({ length: 50 }, () => makeParticle(cols));
-  }
-
-  function tick() {
-    ctx.clearRect(0, 0, W, H);
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    const cols   = getColors();
-
-    particles.forEach((p, i) => {
-      p.x   += p.dx;
-      p.y   += p.dy;
-      p.rot += p.drot;
-      p.life++;
-
-      const lifeRatio = p.life / p.maxLife;
-      const fade = lifeRatio < 0.12
-        ? lifeRatio / 0.12
-        : lifeRatio > 0.78
-        ? 1 - (lifeRatio - 0.78) / 0.22
-        : 1;
-
-      ctx.globalAlpha = p.opacity * fade * (isDark ? 1 : 0.85);
-      drawParticle(p);
-
-      // Respawn when out of bounds or life exhausted
-      if (p.life >= p.maxLife || p.y < -20 || p.x < -20 || p.x > W + 20) {
-        const np = makeParticle(cols);
-        // Respawn from bottom or side edges
-        const edge = Math.random();
-        if (edge < 0.6) { np.x = Math.random() * W; np.y = H + 10; }
-        else if (edge < 0.8) { np.x = -10; np.y = Math.random() * H; np.dx = Math.abs(np.dx); }
-        else { np.x = W + 10; np.y = Math.random() * H; np.dx = -Math.abs(np.dx); }
-        np.life = 0;
-        particles[i] = np;
-      }
-    });
-
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(tick);
-  }
-
-  init();
-  tick();
-
-  let resizeRaf;
-  window.addEventListener("resize", () => {
-    cancelAnimationFrame(resizeRaf);
-    resizeRaf = requestAnimationFrame(() => resize());
-  }, { passive: true });
-
-  // Re-read colors on theme change
-  document.documentElement.addEventListener("themechange", () => {
-    const cols = getColors();
-    particles.forEach(p => {
-      const colorArr = [cols.accent, cols.accent2, cols.muted];
-      p.color = colorArr[Math.floor(Math.random() * colorArr.length)];
-    });
-  });
-})();
 
 
-(function() {
-  const canvas = document.getElementById("heroParticles");
-  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const ctx = canvas.getContext("2d");
-  const hero = canvas.closest(".hero");
-  let W, H, particles;
 
-  const accent  = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#bf5430";
-  const accent2 = getComputedStyle(document.documentElement).getPropertyValue("--accent2").trim() || "#3d7265";
 
-  function resize() {
-    W = canvas.width  = hero.offsetWidth;
-    H = canvas.height = hero.offsetHeight;
-  }
-
-  function makeParticle() {
-    return {
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: 1 + Math.random() * 2.5,
-      dx: (Math.random() - 0.5) * 0.25,
-      dy: -0.15 - Math.random() * 0.2,
-      opacity: 0.15 + Math.random() * 0.35,
-      color: Math.random() > 0.5 ? accent : accent2,
-      shape: Math.random() > 0.7 ? "star" : "circle",
-      life: 0,
-      maxLife: 200 + Math.random() * 300,
-    };
-  }
-
-  function drawStar(cx, cy, r) {
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.beginPath();
-    for (let i = 0; i < 4; i++) {
-      const angle = (i / 4) * Math.PI * 2;
-      ctx.moveTo(0, 0);
-      ctx.lineTo(Math.cos(angle) * r * 2, Math.sin(angle) * r * 2);
-    }
-    ctx.restore();
-  }
-
-  function init() {
-    resize();
-    particles = Array.from({ length: 28 }, makeParticle);
-  }
-
-  function tick() {
-    ctx.clearRect(0, 0, W, H);
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-
-    particles.forEach((p, i) => {
-      p.x += p.dx;
-      p.y += p.dy;
-      p.life++;
-
-      const lifeRatio = p.life / p.maxLife;
-      const fade = lifeRatio < 0.1 ? lifeRatio / 0.1 : lifeRatio > 0.8 ? 1 - (lifeRatio - 0.8) / 0.2 : 1;
-      const alpha = p.opacity * fade * (isDark ? 0.6 : 0.45);
-
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = p.color;
-      ctx.strokeStyle = p.color;
-      ctx.lineWidth = 1;
-
-      if (p.shape === "star") {
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.beginPath();
-        for (let j = 0; j < 4; j++) {
-          const ang = (j / 4) * Math.PI * 2;
-          if (j === 0) ctx.moveTo(Math.cos(ang) * p.r * 2.5, Math.sin(ang) * p.r * 2.5);
-          else ctx.lineTo(Math.cos(ang) * p.r * 2.5, Math.sin(ang) * p.r * 2.5);
-        }
-        ctx.stroke();
-        ctx.restore();
-      } else {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      if (p.life >= p.maxLife || p.y < -10 || p.x < -10 || p.x > W + 10) {
-        particles[i] = makeParticle();
-        particles[i].y = H + 10;
-      }
-    });
-
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(tick);
-  }
-
-  init();
-  tick();
-  window.addEventListener("resize", () => { resize(); }, { passive: true });
-})();
 
 /* ── Project detail modal ────────────────────────────────────── */
 const projects = {
@@ -882,9 +629,13 @@ function openProject(id) {
 function closeProject() {
   projectOverlay.classList.remove("active");
   projectPanel.classList.remove("active");
+  projectPanel.classList.add("closing");
   projectPanel.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
-  setTimeout(() => { projectOverlay.style.display = "none"; }, 400);
+  setTimeout(() => {
+    projectPanel.classList.remove("closing");
+    projectOverlay.style.display = "none";
+  }, 300);
   announce("Project closed");
 }
 
@@ -1080,4 +831,185 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
   }, { threshold: 0.2 });
 
   observer.observe(art);
+})();
+
+/* ── Background particle canvas ──────────────────────────────── */
+(function() {
+  const canvas = document.getElementById("bgParticles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let W, H, particles = [];
+  const COUNT = 55;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  function getAccent() {
+    const theme = document.documentElement.getAttribute("data-theme");
+    return theme === "dark" ? "rgba(212,113,79," : "rgba(191,84,48,";
+  }
+
+  function mkParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 0.6 + Math.random() * 1.6,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      a: 0.06 + Math.random() * 0.18,
+    };
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(mkParticle());
+
+  let animId;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const base = getAccent();
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -4) p.x = W + 4;
+      if (p.x > W + 4) p.x = -4;
+      if (p.y < -4) p.y = H + 4;
+      if (p.y > H + 4) p.y = -4;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = base + p.a + ")";
+      ctx.fill();
+    });
+    // Draw faint connecting lines between nearby particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = base + (0.045 * (1 - dist / 120)) + ")";
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    animId = requestAnimationFrame(draw);
+  }
+
+  // Pause when tab not visible (performance)
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else draw();
+  });
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+})();
+
+/* ── Hero particle canvas ────────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById("heroParticles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let W, H;
+  const sparks = [];
+  const N = 30;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width  = rect.width;
+    H = canvas.height = rect.height;
+  }
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  for (let i = 0; i < N; i++) {
+    sparks.push({
+      x: Math.random() * (typeof W !== "undefined" ? W : 800),
+      y: Math.random() * (typeof H !== "undefined" ? H : 600),
+      r: 1 + Math.random() * 2.2,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -0.15 - Math.random() * 0.35,
+      a: 0.12 + Math.random() * 0.22,
+      life: Math.random(),
+    });
+  }
+
+  function drawHero() {
+    if (!W || !H) return;
+    ctx.clearRect(0, 0, W, H);
+    const theme = document.documentElement.getAttribute("data-theme");
+    const col = theme === "dark" ? "212,113,79" : "191,84,48";
+    sparks.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 0.004;
+      if (p.life <= 0 || p.y < -10) {
+        p.x = Math.random() * W;
+        p.y = H + 5;
+        p.life = 0.5 + Math.random() * 0.5;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${col},${p.a * p.life})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawHero);
+  }
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) drawHero();
+})();
+
+/* ── Keyboard navigation: skip-to-content ────────────────────── */
+(function() {
+  // Add a skip link dynamically if not already present
+  if (!document.getElementById("skip-link")) {
+    const skip = document.createElement("a");
+    skip.id = "skip-link";
+    skip.href = "#skills";
+    skip.textContent = "Skip to content";
+    skip.style.cssText = [
+      "position:fixed", "top:-100%", "left:1rem", "z-index:9999",
+      "background:var(--accent)", "color:#fff", "padding:0.5rem 1rem",
+      "border-radius:0 0 8px 8px", "font-family:DM Sans,sans-serif",
+      "font-size:0.85rem", "font-weight:600", "text-decoration:none",
+      "transition:top 0.2s"
+    ].join(";");
+    skip.addEventListener("focus", () => { skip.style.top = "0"; });
+    skip.addEventListener("blur",  () => { skip.style.top = "-100%"; });
+    document.body.prepend(skip);
+  }
+})();
+
+/* ── Animate hero badge on load ─────────────────────────────── */
+(function() {
+  const badge = document.querySelector(".hero-art-badge");
+  if (!badge) return;
+  badge.style.opacity = "0";
+  badge.style.transform = "rotate(-3deg) scale(0.7)";
+  setTimeout(() => {
+    badge.style.transition = "opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)";
+    badge.style.opacity = "1";
+    badge.style.transform = "rotate(-3deg) scale(1)";
+  }, 900);
+})();
+
+/* ── Subtle parallax on section headings ─────────────────────── */
+(function() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const headings = document.querySelectorAll("section h2");
+  window.addEventListener("scroll", () => {
+    headings.forEach(h => {
+      const rect = h.getBoundingClientRect();
+      const mid = window.innerHeight / 2;
+      const offset = ((rect.top - mid) / mid) * 5;
+      h.style.transform = h.classList.contains("in")
+        ? `translateY(${offset}px)`
+        : "translateY(14px)";
+    });
+  }, { passive: true });
 })();

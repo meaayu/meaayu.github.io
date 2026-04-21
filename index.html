@@ -3,10 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <meta name="description" content="Aayu — Developer &amp; Artist blending code, animation, illustration, and design." />
+        <meta
+            name="description"
+            content="Aayu — Developer &amp; Artist blending code, animation, illustration, and design."
+        />
         <meta name="theme-color" content="#bf5430" />
         <meta property="og:title" content="Aayu — Developer &amp; Artist" />
-        <meta property="og:description" content="I blend code, hand-drawn animation, illustration, and graphic design into things that feel human, thoughtful, and alive." />
+        <meta
+            property="og:description"
+            content="I blend code, hand-drawn animation, illustration, and graphic design into things that feel human, thoughtful, and alive."
+        />
         <meta property="og:type" content="website" />
         <title>Aayu — Developer & Artist</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +26,12 @@
     </head>
     <body>
         <div id="progress-bar" aria-hidden="true"></div>
-        <div class="sr-only" aria-live="polite" id="announcement" aria-atomic="true"></div>
+        <div
+            class="sr-only"
+            aria-live="polite"
+            id="announcement"
+            aria-atomic="true"
+        ></div>
         <div id="cursor-dot" aria-hidden="true"></div>
         <div id="cursor-ring" aria-hidden="true"></div>
         <div id="cursor-glow" aria-hidden="true"></div>
@@ -196,20 +207,73 @@
         <main>
             <!-- HERO -->
             <header class="hero" id="hero">
-                <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+                <canvas
+                    class="hero-particles"
+                    id="heroParticles"
+                    aria-hidden="true"
+                ></canvas>
                 <!-- Floating doodles -->
+
                 <div class="hero-doodles" aria-hidden="true">
-                    <svg class="doodle doodle-1" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="1.4" opacity="0.22" stroke-dasharray="5 6"/>
+                    <svg
+                        class="doodle doodle-1"
+                        viewBox="0 0 60 60"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle
+                            cx="30"
+                            cy="30"
+                            r="24"
+                            fill="none"
+                            stroke="var(--accent)"
+                            stroke-width="1.4"
+                            opacity="0.22"
+                            stroke-dasharray="5 6"
+                        />
                     </svg>
-                    <svg class="doodle doodle-2" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 4 L24 16 L36 16 L26 24 L30 36 L20 28 L10 36 L14 24 L4 16 L16 16 Z" fill="none" stroke="var(--accent2)" stroke-width="1.2" opacity="0.28"/>
+                    <svg
+                        class="doodle doodle-2"
+                        viewBox="0 0 40 40"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M20 4 L24 16 L36 16 L26 24 L30 36 L20 28 L10 36 L14 24 L4 16 L16 16 Z"
+                            fill="none"
+                            stroke="var(--accent2)"
+                            stroke-width="1.2"
+                            opacity="0.28"
+                        />
                     </svg>
-                    <svg class="doodle doodle-3" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="8" y="8" width="34" height="34" rx="6" fill="none" stroke="var(--accent)" stroke-width="1.2" opacity="0.18" transform="rotate(15 25 25)"/>
+                    <svg
+                        class="doodle doodle-3"
+                        viewBox="0 0 50 50"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <rect
+                            x="8"
+                            y="8"
+                            width="34"
+                            height="34"
+                            rx="6"
+                            fill="none"
+                            stroke="var(--accent)"
+                            stroke-width="1.2"
+                            opacity="0.18"
+                            transform="rotate(15 25 25)"
+                        />
                     </svg>
-                    <svg class="doodle doodle-4" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 3 Q27 15 15 27 Q3 15 15 3Z" fill="none" stroke="var(--accent2)" stroke-width="1.2" opacity="0.25"/>
+                    <svg
+                        class="doodle doodle-4"
+                        viewBox="0 0 30 30"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M15 3 Q27 15 15 27 Q3 15 15 3Z"
+                            fill="none"
+                            stroke="var(--accent2)"
+                            stroke-width="1.2"
+                            opacity="0.25"
+                        />
                     </svg>
                 </div>
                 <div class="hero-content">
@@ -240,7 +304,6 @@
                                 <rect rx="4" />
                             </svg>
                         </a>
-
                     </div>
                     <div class="hero-scroll-hint" aria-hidden="true">
                         <span>scroll</span>
@@ -263,117 +326,511 @@
                     </div>
                 </div>
                 <div class="hero-art" aria-hidden="true">
-                    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                        viewBox="0 0 300 300"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
                         <defs>
-                            <pattern id="dotgrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                                <circle cx="1" cy="1" r="1" fill="var(--accent)" opacity="0.15"/>
+                            <pattern
+                                id="dotgrid"
+                                x="0"
+                                y="0"
+                                width="20"
+                                height="20"
+                                patternUnits="userSpaceOnUse"
+                            >
+                                <circle
+                                    cx="1"
+                                    cy="1"
+                                    r="1"
+                                    fill="var(--accent)"
+                                    opacity="0.15"
+                                />
                             </pattern>
                         </defs>
 
                         <!-- Dot grid bg -->
-                        <rect width="300" height="300" fill="url(#dotgrid)" rx="20"/>
+                        <rect
+                            width="300"
+                            height="300"
+                            fill="url(#dotgrid)"
+                            rx="20"
+                        />
 
                         <!-- ─── Large accent circle (bottom-right, partially clipped) ─── -->
-                        <clipPath id="artclip"><rect width="300" height="300" rx="20"/></clipPath>
+                        <clipPath id="artclip">
+                            <rect width="300" height="300" rx="20" />
+                        </clipPath>
                         <g clip-path="url(#artclip)">
-                            <circle cx="248" cy="252" r="110" fill="var(--accent)" opacity="0.10"/>
-                            <circle cx="248" cy="252" r="72" fill="var(--accent)" opacity="0.12"/>
+                            <circle
+                                cx="248"
+                                cy="252"
+                                r="110"
+                                fill="var(--accent)"
+                                opacity="0.10"
+                            />
+                            <circle
+                                cx="248"
+                                cy="252"
+                                r="72"
+                                fill="var(--accent)"
+                                opacity="0.12"
+                            />
                         </g>
 
                         <!-- ─── Code editor card (top half) ─── -->
-                        <rect x="22" y="22" width="172" height="126" rx="10"
-                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
+                        <rect
+                            x="22"
+                            y="22"
+                            width="172"
+                            height="126"
+                            rx="10"
+                            fill="var(--surface-solid)"
+                            stroke="var(--border)"
+                            stroke-width="1.2"
+                        />
                         <!-- Titlebar -->
-                        <rect x="22" y="22" width="172" height="22" rx="10"
-                              fill="var(--border)" opacity="0.7"/>
-                        <rect x="22" y="33" width="172" height="11" fill="var(--border)" opacity="0.7"/>
+                        <rect
+                            x="22"
+                            y="22"
+                            width="172"
+                            height="22"
+                            rx="10"
+                            fill="var(--border)"
+                            opacity="0.7"
+                        />
+                        <rect
+                            x="22"
+                            y="33"
+                            width="172"
+                            height="11"
+                            fill="var(--border)"
+                            opacity="0.7"
+                        />
                         <!-- Traffic lights -->
-                        <circle cx="36" cy="33" r="4" fill="var(--accent)" opacity="0.75"/>
-                        <circle cx="50" cy="33" r="4" fill="var(--accent2)" opacity="0.65"/>
-                        <circle cx="64" cy="33" r="4" fill="var(--border-strong)" opacity="0.8"/>
+                        <circle
+                            cx="36"
+                            cy="33"
+                            r="4"
+                            fill="var(--accent)"
+                            opacity="0.75"
+                        />
+                        <circle
+                            cx="50"
+                            cy="33"
+                            r="4"
+                            fill="var(--accent2)"
+                            opacity="0.65"
+                        />
+                        <circle
+                            cx="64"
+                            cy="33"
+                            r="4"
+                            fill="var(--border-strong)"
+                            opacity="0.8"
+                        />
 
                         <!-- Code lines (syntax-coloured) -->
                         <!-- line 1 -->
-                        <rect x="34" y="55" width="28" height="7" rx="3" fill="var(--accent2)" opacity="0.65"/>
-                        <rect x="68" y="55" width="46" height="7" rx="3" fill="var(--muted)" opacity="0.35"/>
-                        <rect x="120" y="55" width="20" height="7" rx="3" fill="var(--accent)" opacity="0.55"/>
+                        <rect
+                            x="34"
+                            y="55"
+                            width="28"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent2)"
+                            opacity="0.65"
+                        />
+                        <rect
+                            x="68"
+                            y="55"
+                            width="46"
+                            height="7"
+                            rx="3"
+                            fill="var(--muted)"
+                            opacity="0.35"
+                        />
+                        <rect
+                            x="120"
+                            y="55"
+                            width="20"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent)"
+                            opacity="0.55"
+                        />
                         <!-- line 2 -->
-                        <rect x="44" y="70" width="18" height="7" rx="3" fill="var(--accent)" opacity="0.5"/>
-                        <rect x="68" y="70" width="54" height="7" rx="3" fill="var(--muted)" opacity="0.25"/>
-                        <rect x="128" y="70" width="30" height="7" rx="3" fill="var(--accent2)" opacity="0.5"/>
+                        <rect
+                            x="44"
+                            y="70"
+                            width="18"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent)"
+                            opacity="0.5"
+                        />
+                        <rect
+                            x="68"
+                            y="70"
+                            width="54"
+                            height="7"
+                            rx="3"
+                            fill="var(--muted)"
+                            opacity="0.25"
+                        />
+                        <rect
+                            x="128"
+                            y="70"
+                            width="30"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent2)"
+                            opacity="0.5"
+                        />
                         <!-- line 3 -->
-                        <rect x="44" y="85" width="36" height="7" rx="3" fill="var(--accent2)" opacity="0.45"/>
-                        <rect x="86" y="85" width="22" height="7" rx="3" fill="var(--muted)" opacity="0.3"/>
+                        <rect
+                            x="44"
+                            y="85"
+                            width="36"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent2)"
+                            opacity="0.45"
+                        />
+                        <rect
+                            x="86"
+                            y="85"
+                            width="22"
+                            height="7"
+                            rx="3"
+                            fill="var(--muted)"
+                            opacity="0.3"
+                        />
                         <!-- line 4 -->
-                        <rect x="44" y="100" width="58" height="7" rx="3" fill="var(--muted)" opacity="0.22"/>
-                        <rect x="108" y="100" width="24" height="7" rx="3" fill="var(--accent)" opacity="0.42"/>
+                        <rect
+                            x="44"
+                            y="100"
+                            width="58"
+                            height="7"
+                            rx="3"
+                            fill="var(--muted)"
+                            opacity="0.22"
+                        />
+                        <rect
+                            x="108"
+                            y="100"
+                            width="24"
+                            height="7"
+                            rx="3"
+                            fill="var(--accent)"
+                            opacity="0.42"
+                        />
                         <!-- line 5: cursor blink -->
-                        <rect x="34" y="115" width="12" height="7" rx="3" fill="var(--text)" opacity="0.55" class="art-cursor"/>
+                        <rect
+                            x="34"
+                            y="115"
+                            width="12"
+                            height="7"
+                            rx="3"
+                            fill="var(--text)"
+                            opacity="0.55"
+                            class="art-cursor"
+                        />
                         <!-- line number gutter -->
-                        <rect x="22" y="44" width="8" height="104" fill="var(--border)" opacity="0.35"/>
-                        <rect x="26" y="57" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.35"/>
-                        <rect x="26" y="72" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.28"/>
-                        <rect x="26" y="87" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.22"/>
-                        <rect x="26" y="102" width="4" height="5" rx="1" fill="var(--muted)" opacity="0.18"/>
-                        <rect x="26" y="117" width="4" height="5" rx="1" fill="var(--accent)" opacity="0.55"/>
+                        <rect
+                            x="22"
+                            y="44"
+                            width="8"
+                            height="104"
+                            fill="var(--border)"
+                            opacity="0.35"
+                        />
+                        <rect
+                            x="26"
+                            y="57"
+                            width="4"
+                            height="5"
+                            rx="1"
+                            fill="var(--muted)"
+                            opacity="0.35"
+                        />
+                        <rect
+                            x="26"
+                            y="72"
+                            width="4"
+                            height="5"
+                            rx="1"
+                            fill="var(--muted)"
+                            opacity="0.28"
+                        />
+                        <rect
+                            x="26"
+                            y="87"
+                            width="4"
+                            height="5"
+                            rx="1"
+                            fill="var(--muted)"
+                            opacity="0.22"
+                        />
+                        <rect
+                            x="26"
+                            y="102"
+                            width="4"
+                            height="5"
+                            rx="1"
+                            fill="var(--muted)"
+                            opacity="0.18"
+                        />
+                        <rect
+                            x="26"
+                            y="117"
+                            width="4"
+                            height="5"
+                            rx="1"
+                            fill="var(--accent)"
+                            opacity="0.55"
+                        />
 
                         <!-- ─── Colour palette card (bottom-left) ─── -->
-                        <rect x="22" y="162" width="120" height="116" rx="10"
-                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
+                        <rect
+                            x="22"
+                            y="162"
+                            width="120"
+                            height="116"
+                            rx="10"
+                            fill="var(--surface-solid)"
+                            stroke="var(--border)"
+                            stroke-width="1.2"
+                        />
                         <!-- palette title -->
-                        <text x="82" y="182" font-family="Caveat,cursive" font-size="12"
-                              fill="var(--muted)" text-anchor="middle" opacity="0.7">palette</text>
+                        <text
+                            x="82"
+                            y="182"
+                            font-family="Caveat,cursive"
+                            font-size="12"
+                            fill="var(--muted)"
+                            text-anchor="middle"
+                            opacity="0.7"
+                        >
+                            palette
+                        </text>
                         <!-- swatches row 1 -->
-                        <rect x="34" y="192" width="24" height="24" rx="6" fill="var(--accent)" opacity="0.85"/>
-                        <rect x="64" y="192" width="24" height="24" rx="6" fill="var(--accent2)" opacity="0.85"/>
-                        <rect x="94" y="192" width="24" height="24" rx="6" fill="var(--accent3)" opacity="0.7"/>
+                        <rect
+                            x="34"
+                            y="192"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--accent)"
+                            opacity="0.85"
+                        />
+                        <rect
+                            x="64"
+                            y="192"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--accent2)"
+                            opacity="0.85"
+                        />
+                        <rect
+                            x="94"
+                            y="192"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--accent3)"
+                            opacity="0.7"
+                        />
                         <!-- swatches row 2 -->
-                        <rect x="34" y="222" width="24" height="24" rx="6" fill="var(--text)" opacity="0.45"/>
-                        <rect x="64" y="222" width="24" height="24" rx="6" fill="var(--muted)" opacity="0.45"/>
-                        <rect x="94" y="222" width="24" height="24" rx="6" fill="var(--border-strong)" opacity="0.7"/>
+                        <rect
+                            x="34"
+                            y="222"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--text)"
+                            opacity="0.45"
+                        />
+                        <rect
+                            x="64"
+                            y="222"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--muted)"
+                            opacity="0.45"
+                        />
+                        <rect
+                            x="94"
+                            y="222"
+                            width="24"
+                            height="24"
+                            rx="6"
+                            fill="var(--border-strong)"
+                            opacity="0.7"
+                        />
                         <!-- brush strokes below swatches -->
-                        <path d="M34 256 Q52 250 70 258 Q88 264 106 256 Q118 251 128 256"
-                              fill="none" stroke="var(--accent)" stroke-width="3"
-                              stroke-linecap="round" opacity="0.45"/>
-                        <path d="M34 265 Q52 260 70 268 Q88 274 106 265"
-                              fill="none" stroke="var(--accent2)" stroke-width="2.5"
-                              stroke-linecap="round" opacity="0.35"/>
+                        <path
+                            d="M34 256 Q52 250 70 258 Q88 264 106 256 Q118 251 128 256"
+                            fill="none"
+                            stroke="var(--accent)"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            opacity="0.45"
+                        />
+                        <path
+                            d="M34 265 Q52 260 70 268 Q88 274 106 265"
+                            fill="none"
+                            stroke="var(--accent2)"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            opacity="0.35"
+                        />
 
                         <!-- ─── Star / brand mark (center-right zone) ─── -->
-                        <text x="210" y="118" font-family="Caveat,cursive" font-size="68"
-                              font-weight="700" fill="var(--accent)" text-anchor="middle"
-                              opacity="0.82" class="art-star">✦</text>
+                        <text
+                            x="210"
+                            y="118"
+                            font-family="Caveat,cursive"
+                            font-size="68"
+                            font-weight="700"
+                            fill="var(--accent)"
+                            text-anchor="middle"
+                            opacity="0.82"
+                            class="art-star"
+                        >
+                            ✦
+                        </text>
 
                         <!-- ─── Typography tester card (right side, tall) ─── -->
-                        <rect x="207" y="148" width="72" height="130" rx="10"
-                              fill="var(--surface-solid)" stroke="var(--border)" stroke-width="1.2"/>
-                        <text x="243" y="168" font-family="Caveat,cursive" font-size="14"
-                              font-weight="700" fill="var(--text)" text-anchor="middle" opacity="0.8">Aa</text>
-                        <line x1="218" y1="176" x2="268" y2="176" stroke="var(--border)" stroke-width="0.8"/>
-                        <rect x="218" y="183" width="50" height="5" rx="2" fill="var(--muted)" opacity="0.28"/>
-                        <rect x="218" y="194" width="38" height="5" rx="2" fill="var(--muted)" opacity="0.20"/>
-                        <rect x="218" y="205" width="44" height="5" rx="2" fill="var(--muted)" opacity="0.16"/>
+                        <rect
+                            x="207"
+                            y="148"
+                            width="72"
+                            height="130"
+                            rx="10"
+                            fill="var(--surface-solid)"
+                            stroke="var(--border)"
+                            stroke-width="1.2"
+                        />
+                        <text
+                            x="243"
+                            y="168"
+                            font-family="Caveat,cursive"
+                            font-size="14"
+                            font-weight="700"
+                            fill="var(--text)"
+                            text-anchor="middle"
+                            opacity="0.8"
+                        >
+                            Aa
+                        </text>
+                        <line
+                            x1="218"
+                            y1="176"
+                            x2="268"
+                            y2="176"
+                            stroke="var(--border)"
+                            stroke-width="0.8"
+                        />
+                        <rect
+                            x="218"
+                            y="183"
+                            width="50"
+                            height="5"
+                            rx="2"
+                            fill="var(--muted)"
+                            opacity="0.28"
+                        />
+                        <rect
+                            x="218"
+                            y="194"
+                            width="38"
+                            height="5"
+                            rx="2"
+                            fill="var(--muted)"
+                            opacity="0.20"
+                        />
+                        <rect
+                            x="218"
+                            y="205"
+                            width="44"
+                            height="5"
+                            rx="2"
+                            fill="var(--muted)"
+                            opacity="0.16"
+                        />
                         <!-- Mini colour dots -->
-                        <circle cx="225" cy="224" r="7" fill="var(--accent)" opacity="0.7"/>
-                        <circle cx="243" cy="224" r="7" fill="var(--accent2)" opacity="0.7"/>
-                        <circle cx="261" cy="224" r="7" fill="var(--accent3)" opacity="0.55"/>
+                        <circle
+                            cx="225"
+                            cy="224"
+                            r="7"
+                            fill="var(--accent)"
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="243"
+                            cy="224"
+                            r="7"
+                            fill="var(--accent2)"
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="261"
+                            cy="224"
+                            r="7"
+                            fill="var(--accent3)"
+                            opacity="0.55"
+                        />
                         <!-- Wavy line -->
-                        <path d="M218 242 Q226 237 234 242 Q242 247 250 242 Q258 237 268 242"
-                              fill="none" stroke="var(--accent)" stroke-width="1.8"
-                              stroke-linecap="round" opacity="0.4"/>
+                        <path
+                            d="M218 242 Q226 237 234 242 Q242 247 250 242 Q258 237 268 242"
+                            fill="none"
+                            stroke="var(--accent)"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            opacity="0.4"
+                        />
                         <!-- small sparkle -->
-                        <text x="243" y="268" font-family="Caveat,cursive" font-size="14"
-                              fill="var(--accent2)" text-anchor="middle" opacity="0.65">✦</text>
+                        <text
+                            x="243"
+                            y="268"
+                            font-family="Caveat,cursive"
+                            font-size="14"
+                            fill="var(--accent2)"
+                            text-anchor="middle"
+                            opacity="0.65"
+                        >
+                            ✦
+                        </text>
 
                         <!-- ─── Connecting dashed line between cards ─── -->
-                        <line x1="194" y1="85" x2="207" y2="148"
-                              stroke="var(--accent)" stroke-width="1"
-                              stroke-dasharray="4 4" opacity="0.35"/>
+                        <line
+                            x1="194"
+                            y1="85"
+                            x2="207"
+                            y2="148"
+                            stroke="var(--accent)"
+                            stroke-width="1"
+                            stroke-dasharray="4 4"
+                            opacity="0.35"
+                        />
 
                         <!-- ─── Hand-lettered label ─── -->
-                        <text x="158" y="290" font-family="Caveat,cursive" font-size="13"
-                              font-weight="700" fill="var(--muted)" text-anchor="middle"
-                              letter-spacing="0.08em" opacity="0.6">code × art × motion</text>
+                        <text
+                            x="158"
+                            y="290"
+                            font-family="Caveat,cursive"
+                            font-size="13"
+                            font-weight="700"
+                            fill="var(--muted)"
+                            text-anchor="middle"
+                            letter-spacing="0.08em"
+                            opacity="0.6"
+                        >
+                            code × art × motion
+                        </text>
                     </svg>
                     <!-- Floating badge -->
                     <div class="hero-art-badge">art &amp; code ✦</div>
@@ -385,88 +842,219 @@
                 <div class="skills-heading"><h2>What I Craft</h2></div>
                 <div class="skills-grid">
                     <div class="skill-card sk-wrap reveal reveal-d1">
-                        <svg class="sk-svg" aria-hidden="true"><rect rx="10" /></svg>
+                        <svg class="sk-svg" aria-hidden="true">
+                            <rect rx="10" />
+                        </svg>
                         <div class="skill-cluster-header">
                             <span class="skill-icon">💻</span>
                             <span class="skill-cluster-name">Development</span>
                         </div>
-                            <div class="skill-bars">
-                            <div class="skill-bar-row"><span class="skill-bar-name">HTML/CSS</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="92"></div></div><span class="skill-bar-pct">92%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">JavaScript</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="78"></div></div><span class="skill-bar-pct">78%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">React</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="65"></div></div><span class="skill-bar-pct">65%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Node.js</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="55"></div></div><span class="skill-bar-pct">55%</span></div>
+                        <div class="skill-bars">
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">HTML/CSS</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="92"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">92%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">JavaScript</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="78"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">78%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">React</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="65"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">65%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Node.js</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="55"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">55%</span>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-card sk-wrap reveal reveal-d2">
-                        <svg class="sk-svg" aria-hidden="true"><rect rx="10" /></svg>
+                        <svg class="sk-svg" aria-hidden="true">
+                            <rect rx="10" />
+                        </svg>
                         <div class="skill-cluster-header">
                             <span class="skill-icon">🎬</span>
                             <span class="skill-cluster-name">Animation</span>
                         </div>
                         <div class="skill-bars">
-                            <div class="skill-bar-row"><span class="skill-bar-name">2D Animation</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="80"></div></div><span class="skill-bar-pct">80%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Storyboarding</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="70"></div></div><span class="skill-bar-pct">70%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Tahoma2D</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="60"></div></div><span class="skill-bar-pct">60%</span></div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">2D Animation</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="80"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">80%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name"
+                                    >Storyboarding</span
+                                >
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="70"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">70%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Tahoma2D</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="60"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">60%</span>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-card sk-wrap reveal reveal-d3">
-                        <svg class="sk-svg" aria-hidden="true"><rect rx="10" /></svg>
+                        <svg class="sk-svg" aria-hidden="true">
+                            <rect rx="10" />
+                        </svg>
                         <div class="skill-cluster-header">
                             <span class="skill-icon">🎨</span>
                             <span class="skill-cluster-name">Illustration</span>
                         </div>
                         <div class="skill-bars">
-                            <div class="skill-bar-row"><span class="skill-bar-name">Krita</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div><span class="skill-bar-pct">85%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Photoshop</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="72"></div></div><span class="skill-bar-pct">72%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Concept Art</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="75"></div></div><span class="skill-bar-pct">75%</span></div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Krita</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="85"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">85%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Photoshop</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="72"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">72%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Concept Art</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="75"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">75%</span>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-card sk-wrap reveal reveal-d4">
-                        <svg class="sk-svg" aria-hidden="true"><rect rx="10" /></svg>
+                        <svg class="sk-svg" aria-hidden="true">
+                            <rect rx="10" />
+                        </svg>
                         <div class="skill-cluster-header">
                             <span class="skill-icon">🖌️</span>
                             <span class="skill-cluster-name">Design</span>
                         </div>
                         <div class="skill-bars">
-                            <div class="skill-bar-row"><span class="skill-bar-name">Figma</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div><span class="skill-bar-pct">88%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Illustrator</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="68"></div></div><span class="skill-bar-pct">68%</span></div>
-                            <div class="skill-bar-row"><span class="skill-bar-name">Typography</span><div class="skill-bar-track"><div class="skill-bar-fill" data-w="80"></div></div><span class="skill-bar-pct">80%</span></div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Figma</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="88"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">88%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Illustrator</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="68"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">68%</span>
+                            </div>
+                            <div class="skill-bar-row">
+                                <span class="skill-bar-name">Typography</span>
+                                <div class="skill-bar-track">
+                                    <div
+                                        class="skill-bar-fill"
+                                        data-w="80"
+                                    ></div>
+                                </div>
+                                <span class="skill-bar-pct">80%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- MARQUEE TICKER -->
-            <div class="marquee-strip" aria-hidden="true">
-                <div class="marquee-track">
-                    <span>Code</span><span class="marquee-dot">✦</span>
-                    <span>Animation</span><span class="marquee-dot">✦</span>
-                    <span>Illustration</span><span class="marquee-dot">✦</span>
-                    <span>Design</span><span class="marquee-dot">✦</span>
-                    <span>Storytelling</span><span class="marquee-dot">✦</span>
-                    <span>Motion</span><span class="marquee-dot">✦</span>
-                    <span>Code</span><span class="marquee-dot">✦</span>
-                    <span>Animation</span><span class="marquee-dot">✦</span>
-                    <span>Illustration</span><span class="marquee-dot">✦</span>
-                    <span>Design</span><span class="marquee-dot">✦</span>
-                    <span>Storytelling</span><span class="marquee-dot">✦</span>
-                    <span>Motion</span><span class="marquee-dot">✦</span>
-                </div>
-            </div>
 
             <!-- WORK -->
             <section id="work">
-                <h2>Selected Work</h2>
+                <h2>My works</h2>
                 <!-- Filter tabs -->
-                <div class="work-filters" role="group" aria-label="Filter work by category">
-                    <button class="work-filter active" data-filter="all">All</button>
-                    <button class="work-filter" data-filter="Web Dev">Dev</button>
-                    <button class="work-filter" data-filter="Animation">Motion</button>
-                    <button class="work-filter" data-filter="Illustration">Art</button>
-                    <button class="work-filter" data-filter="Graphic Design">Design</button>
+                <div
+                    class="work-filters"
+                    role="group"
+                    aria-label="Filter work by category"
+                >
+                    <button class="work-filter active" data-filter="all">
+                        All
+                    </button>
+                    <button class="work-filter" data-filter="Web Dev">
+                        Dev
+                    </button>
+                    <button class="work-filter" data-filter="Animation">
+                        Animation
+                    </button>
+                    <button class="work-filter" data-filter="Illustration">
+                        Art
+                    </button>
+                    <button class="work-filter" data-filter="Graphic Design">
+                        Design
+                    </button>
                 </div>
                 <div class="grid">
-                    <div class="card work-card sk-wrap reveal reveal-d1" data-project="1" data-category="Web Dev" role="button" tabindex="0" aria-label="View Interactive Portfolio Site details">
+                    <div
+                        class="card work-card sk-wrap reveal reveal-d1"
+                        data-project="1"
+                        data-category="Web Dev"
+                        role="button"
+                        tabindex="0"
+                        aria-label="View Interactive Portfolio Site details"
+                    >
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -561,20 +1149,26 @@
                         </div>
                         <div class="work-meta">
                             <div class="work-featured-badge">✦ Featured</div>
-                            <h3>Interactive Portfolio Site</h3>
+                            <h3>Portfolio Site</h3>
                             <p>
-                                A hand-crafted web experience merging sketchy
-                                aesthetics with smooth interactions.
+                                A hand-crafted web experience merging aesthetics
+                                with smooth interactions.
                             </p>
                             <div class="tags">
-                                <span class="tag">Web Dev</span
-                                ><span class="tag">UI/UX</span
-                                ><span class="tag">React</span>
+                                <span class="tag">Web Dev</span>
+                                <span class="tag">React</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card work-card sk-wrap reveal reveal-d2" data-project="2" data-category="Animation" role="button" tabindex="0" aria-label="View Hand Drawn Animation details">
+                    <div
+                        class="card work-card sk-wrap reveal reveal-d2"
+                        data-project="2"
+                        data-category="Animation"
+                        role="button"
+                        tabindex="0"
+                        aria-label="View Hand Drawn Animation details"
+                    >
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -647,12 +1241,19 @@
                             </p>
                             <div class="tags">
                                 <span class="tag">Animation</span
-                                ><span class="tag">Storyboarding</span>
+                                ><span class="tag">Short film</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card work-card sk-wrap reveal reveal-d3" data-project="3" data-category="Graphic Design" role="button" tabindex="0" aria-label="View Brand Identity System details">
+                    <div
+                        class="card work-card sk-wrap reveal reveal-d3"
+                        data-project="3"
+                        data-category="Graphic Design"
+                        role="button"
+                        tabindex="0"
+                        aria-label="View Brand Identity System details"
+                    >
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -741,19 +1342,28 @@
                             </svg>
                         </div>
                         <div class="work-meta">
-                            <h3>Brand Identity System</h3>
+                            <h3>Graphic design</h3>
                             <p>
-                                Complete visual identity including logo, type
-                                system, color palette, and usage guidelines.
+                                Complete visual identity including logo,
+                                typography, color palette, and usage guidelines.
                             </p>
                             <div class="tags">
                                 <span class="tag">Graphic Design</span
                                 ><span class="tag">Branding</span>
+                                <span class="tag">Website Design</span>
+                                <span class="tag">UI/UX</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card work-card sk-wrap reveal reveal-d1" data-project="4" data-category="Illustration" role="button" tabindex="0" aria-label="View Art Showcase details">
+                    <div
+                        class="card work-card sk-wrap reveal reveal-d1"
+                        data-project="4"
+                        data-category="Illustration"
+                        role="button"
+                        tabindex="0"
+                        aria-label="View Art Showcase details"
+                    >
                         <svg class="sk-svg" aria-hidden="true">
                             <rect rx="6" />
                         </svg>
@@ -763,41 +1373,125 @@
                                 xmlns="http://www.w3.org/2000/svg"
                                 preserveAspectRatio="xMidYMid slice"
                             >
-                                <rect width="320" height="180" fill="var(--bg)" />
+                                <rect
+                                    width="320"
+                                    height="180"
+                                    fill="var(--bg)"
+                                />
                                 <!-- Canvas frame -->
-                                <rect x="30" y="20" width="120" height="140" rx="3" fill="var(--border)" opacity="0.15" stroke="var(--border)" stroke-width="1.2" />
+                                <rect
+                                    x="30"
+                                    y="20"
+                                    width="120"
+                                    height="140"
+                                    rx="3"
+                                    fill="var(--border)"
+                                    opacity="0.15"
+                                    stroke="var(--border)"
+                                    stroke-width="1.2"
+                                />
                                 <!-- Landscape sketch inside frame -->
-                                <ellipse cx="90" cy="110" rx="38" ry="14" fill="var(--accent2)" opacity="0.25" />
-                                <path d="M50 100 Q70 70 90 85 Q110 60 130 100" stroke="var(--accent2)" stroke-width="1.5" fill="none" opacity="0.6" />
-                                <circle cx="75" cy="50" r="12" fill="var(--accent)" opacity="0.18" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.5" />
+                                <ellipse
+                                    cx="90"
+                                    cy="110"
+                                    rx="38"
+                                    ry="14"
+                                    fill="var(--accent2)"
+                                    opacity="0.25"
+                                />
+                                <path
+                                    d="M50 100 Q70 70 90 85 Q110 60 130 100"
+                                    stroke="var(--accent2)"
+                                    stroke-width="1.5"
+                                    fill="none"
+                                    opacity="0.6"
+                                />
+                                <circle
+                                    cx="75"
+                                    cy="50"
+                                    r="12"
+                                    fill="var(--accent)"
+                                    opacity="0.18"
+                                    stroke="var(--accent)"
+                                    stroke-width="1"
+                                    stroke-opacity="0.5"
+                                />
                                 <!-- Pencil icon -->
                                 <g transform="translate(175,30) rotate(30)">
-                                    <rect x="-4" y="-28" width="8" height="40" rx="2" fill="var(--accent)" opacity="0.55" />
-                                    <polygon points="-4,12 4,12 0,22" fill="var(--text)" opacity="0.5" />
-                                    <rect x="-4" y="-32" width="8" height="6" rx="1" fill="var(--border)" />
+                                    <rect
+                                        x="-4"
+                                        y="-28"
+                                        width="8"
+                                        height="40"
+                                        rx="2"
+                                        fill="var(--accent)"
+                                        opacity="0.55"
+                                    />
+                                    <polygon
+                                        points="-4,12 4,12 0,22"
+                                        fill="var(--text)"
+                                        opacity="0.5"
+                                    />
+                                    <rect
+                                        x="-4"
+                                        y="-32"
+                                        width="8"
+                                        height="6"
+                                        rx="1"
+                                        fill="var(--border)"
+                                    />
                                 </g>
                                 <!-- Scattered sketch marks -->
-                                <path d="M180 90 Q195 80 210 95 Q225 110 240 85" stroke="var(--muted)" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round" />
-                                <path d="M185 115 Q205 108 225 118" stroke="var(--muted)" stroke-width="1" fill="none" opacity="0.35" stroke-linecap="round" />
-                                <path d="M190 135 Q210 128 230 140" stroke="var(--muted)" stroke-width="1" fill="none" opacity="0.3" stroke-linecap="round" />
+                                <path
+                                    d="M180 90 Q195 80 210 95 Q225 110 240 85"
+                                    stroke="var(--muted)"
+                                    stroke-width="1.2"
+                                    fill="none"
+                                    opacity="0.45"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M185 115 Q205 108 225 118"
+                                    stroke="var(--muted)"
+                                    stroke-width="1"
+                                    fill="none"
+                                    opacity="0.35"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M190 135 Q210 128 230 140"
+                                    stroke="var(--muted)"
+                                    stroke-width="1"
+                                    fill="none"
+                                    opacity="0.3"
+                                    stroke-linecap="round"
+                                />
                                 <!-- Star accent -->
-                                <text x="265" y="155" font-family="Caveat,cursive" font-size="28" fill="var(--accent)" opacity="0.45">✦</text>
+                                <text
+                                    x="265"
+                                    y="155"
+                                    font-family="Caveat,cursive"
+                                    font-size="28"
+                                    fill="var(--accent)"
+                                    opacity="0.45"
+                                >
+                                    ✦
+                                </text>
                             </svg>
                         </div>
                         <div class="work-meta">
                             <h3>Art Showcase</h3>
                             <p>
-                                Original illustrations, sketches, and mixed-media
-                                artwork spanning character design and environments.
+                                Original illustrations, sketches, character
+                                design and environments.
                             </p>
                             <div class="tags">
                                 <span class="tag">Illustration</span
                                 ><span class="tag">Concept Art</span
-                                ><span class="tag">Mixed Media</span>
+                                ><span class="tag">Sketches</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
             <section id="about">
@@ -811,8 +1505,10 @@
                             clarity, simplicity, and human feeling.
                         </p>
                         <p>
-                            I believe the best digital work leaves room for
-                            imperfection — that's where the character lives.
+                            Currently based in Nepal, I work on personal and
+                            freelance projects across web, illustration, and
+                            animation — always chasing that moment when
+                            something on screen feels genuinely <em>alive.</em>
                         </p>
                         <hr class="divider" />
                         <div class="stats">
@@ -821,12 +1517,16 @@
                                 <span class="stat-label">Years making</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-num" data-count="12">12+</span>
+                                <span class="stat-num" data-count="12"
+                                    >12+</span
+                                >
                                 <span class="stat-label">Projects shipped</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-num">∞</span>
-                                <span class="stat-label">Sketchbooks filled</span>
+                                <span class="stat-label"
+                                    >Sketchbooks filled</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -848,39 +1548,113 @@
                 <h2>Let's Connect</h2>
                 <div class="contact-wrap">
                     <div class="contact-left reveal">
-                        <p class="contact-big-cta">Got an idea?<br>Let's make it <em>real.</em></p>
+                        <p class="contact-big-cta">
+                            Got an idea?<br />Let's make it <em>real.</em>
+                        </p>
                         <p class="contact-blurb">
                             Have a project in mind, need an illustration, or
                             just want to chat about art &amp; tech? I'd love to
                             hear from you.
                         </p>
+                        <div class="contact-email-action">
+                            <button class="copy-email-btn sk-wrap" id="copyEmailBtn" aria-label="Copy email address">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                                    <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                                <span class="copy-email-text">aayu@example.com</span>
+                                <span class="copy-email-confirm" aria-hidden="true">Copied! ✓</span>
+                            </button>
+                        </div>
                         <div class="socials">
                             <a href="#" aria-label="GitHub">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                                    />
+                                </svg>
                                 GitHub
                             </a>
                             <a href="#" aria-label="Instagram">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <rect
+                                        x="2"
+                                        y="2"
+                                        width="20"
+                                        height="20"
+                                        rx="5"
+                                    />
+                                    <circle cx="12" cy="12" r="4" />
+                                    <circle
+                                        cx="17.5"
+                                        cy="6.5"
+                                        r="0.5"
+                                        fill="currentColor"
+                                        stroke="none"
+                                    />
+                                </svg>
                                 Instagram
                             </a>
                             <a href="#" aria-label="Behance">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 11.25c.83 0 1.5-.67 1.5-1.5S8.33 8.25 7.5 8.25H4.5v3h3zm.25 1.5H4.5v3.25H7.75c.97 0 1.75-.78 1.75-1.75s-.78-1.5-1.75-1.5zM2 6h7c1.93 0 3.5 1.57 3.5 3.5 0 1-.42 1.9-1.09 2.56A3.75 3.75 0 0 1 12.75 16 3.75 3.75 0 0 1 9 19.75H2V6zm15.5 1.5h-4v-1.5h4v1.5zm-2 8c.97 0 1.77-.63 2.04-1.5h-4.08c.27.87 1.07 1.5 2.04 1.5zm0-6C13.57 9.5 12 11.07 12 13h7c0-1.93-1.57-3.5-3.5-3.5z"/></svg>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M7.5 11.25c.83 0 1.5-.67 1.5-1.5S8.33 8.25 7.5 8.25H4.5v3h3zm.25 1.5H4.5v3.25H7.75c.97 0 1.75-.78 1.75-1.75s-.78-1.5-1.75-1.5zM2 6h7c1.93 0 3.5 1.57 3.5 3.5 0 1-.42 1.9-1.09 2.56A3.75 3.75 0 0 1 12.75 16 3.75 3.75 0 0 1 9 19.75H2V6zm15.5 1.5h-4v-1.5h4v1.5zm-2 8c.97 0 1.77-.63 2.04-1.5h-4.08c.27.87 1.07 1.5 2.04 1.5zm0-6C13.57 9.5 12 11.07 12 13h7c0-1.93-1.57-3.5-3.5-3.5z"
+                                    />
+                                </svg>
                                 Behance
                             </a>
                             <a href="#" aria-label="LinkedIn">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.991V9h3.114v1.561h.045c.434-.82 1.494-1.685 3.076-1.685 3.29 0 3.897 2.166 3.897 4.984l-.001 6.592zM5.337 7.433a1.81 1.81 0 1 1 0-3.62 1.81 1.81 0 0 1 0 3.62zm1.558 13.019H3.78V9h3.115v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.991V9h3.114v1.561h.045c.434-.82 1.494-1.685 3.076-1.685 3.29 0 3.897 2.166 3.897 4.984l-.001 6.592zM5.337 7.433a1.81 1.81 0 1 1 0-3.62 1.81 1.81 0 0 1 0 3.62zm1.558 13.019H3.78V9h3.115v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                                    />
+                                </svg>
                                 LinkedIn
                             </a>
                             <a href="#" aria-label="Twitter / X">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                    />
+                                </svg>
                                 Twitter
                             </a>
                         </div>
                     </div>
                     <div class="contact-form-wrap reveal">
                         <div class="contact-form-card sk-wrap">
-                            <svg class="sk-svg" aria-hidden="true"><rect class="acc" rx="6" /></svg>
-                            <div class="form-success" id="formSuccess" aria-live="polite" hidden>
+                            <svg class="sk-svg" aria-hidden="true">
+                                <rect class="acc" rx="6" />
+                            </svg>
+                            <div
+                                class="form-success"
+                                id="formSuccess"
+                                aria-live="polite"
+                                hidden
+                            >
                                 <span class="form-success-icon">✦</span>
                                 <p>Message sent! I'll get back to you soon.</p>
                             </div>
@@ -888,22 +1662,70 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="contactName">Name</label>
-                                        <input type="text" id="contactName" name="name" placeholder="Your name" autocomplete="name" />
-                                        <span class="field-err" id="nameErr"></span>
+                                        <input
+                                            type="text"
+                                            id="contactName"
+                                            name="name"
+                                            placeholder="Your name"
+                                            autocomplete="name"
+                                        />
+                                        <span
+                                            class="field-err"
+                                            id="nameErr"
+                                        ></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="contactEmail">Email</label>
-                                        <input type="email" id="contactEmail" name="email" placeholder="you@example.com" autocomplete="email" />
-                                        <span class="field-err" id="emailErr"></span>
+                                        <input
+                                            type="email"
+                                            id="contactEmail"
+                                            name="email"
+                                            placeholder="you@example.com"
+                                            autocomplete="email"
+                                        />
+                                        <span
+                                            class="field-err"
+                                            id="emailErr"
+                                        ></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contactSubject">What's this about?</label>
-                                    <div class="subject-pills" role="group" aria-label="Subject">
-                                        <button type="button" class="subj-pill active" data-value="Web Project">Web Project</button>
-                                        <button type="button" class="subj-pill" data-value="Illustration">Illustration</button>
-                                        <button type="button" class="subj-pill" data-value="Animation">Animation</button>
-                                        <button type="button" class="subj-pill" data-value="Just chatting">Just chatting ✦</button>
+                                    <label for="contactSubject"
+                                        >What's this about?</label
+                                    >
+                                    <div
+                                        class="subject-pills"
+                                        role="group"
+                                        aria-label="Subject"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="subj-pill active"
+                                            data-value="Web Project"
+                                        >
+                                            Web Project
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="subj-pill"
+                                            data-value="Illustration"
+                                        >
+                                            Illustration
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="subj-pill"
+                                            data-value="Animation"
+                                        >
+                                            Animation
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="subj-pill"
+                                            data-value="Just chatting"
+                                        >
+                                            Just chatting ✦
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -913,18 +1735,39 @@
                                             <span class="msg-card-dot"></span>
                                             <span class="msg-card-dot"></span>
                                             <span class="msg-card-dot"></span>
-                                            <span class="msg-card-label">new message</span>
+                                            <span class="msg-card-label"
+                                                >new message</span
+                                            >
                                         </div>
-                                        <textarea id="contactMsg" name="message" rows="3" placeholder="Tell me about your idea…" maxlength="500"></textarea>
+                                        <textarea
+                                            id="contactMsg"
+                                            name="message"
+                                            rows="3"
+                                            placeholder="Tell me about your idea…"
+                                            maxlength="500"
+                                        ></textarea>
                                     </div>
-                                    <div class="char-counter"><span id="charCount">0</span>/500</div>
+                                    <div class="char-counter">
+                                        <span id="charCount">0</span>/500
+                                    </div>
                                     <span class="field-err" id="msgErr"></span>
                                 </div>
-                                <div style="display:flex;justify-content:flex-end;">
-                                <button type="button" class="btn sk-wrap form-submit" id="contactSubmit">
-                                    Send it ↗
-                                    <svg class="sk-svg" aria-hidden="true"><rect class="acc" rx="4" /></svg>
-                                </button>
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: flex-end;
+                                    "
+                                >
+                                    <button
+                                        type="button"
+                                        class="btn sk-wrap form-submit"
+                                        id="contactSubmit"
+                                    >
+                                        Send it ↗
+                                        <svg class="sk-svg" aria-hidden="true">
+                                            <rect class="acc" rx="4" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -936,17 +1779,43 @@
         <footer>
             <div class="footer-inner">
                 <span class="footer-logo">Aayu<span>.</span></span>
-                <span class="footer-copy">© 2026 Aayu</span>
-                <span class="footer-tagline">Code × Art × Motion</span>
+                <span class="footer-copy">© 2026 Aayu — All rights reserved</span>
+                <div class="footer-right">
+                    <span class="footer-tagline">Code × Art × Motion</span>
+                    <a href="#" class="footer-resume" aria-label="Download Resume">Resume ↓</a>
+                </div>
             </div>
         </footer>
 
         <!-- PROJECT DETAIL MODAL -->
-        <div class="project-overlay" id="projectOverlay" aria-hidden="true"></div>
-        <div class="project-panel" id="projectPanel" role="dialog" aria-modal="true" aria-label="Project details">
+        <div
+            class="project-overlay"
+            id="projectOverlay"
+            aria-hidden="true"
+        ></div>
+        <div
+            class="project-panel"
+            id="projectPanel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Project details"
+        >
             <div class="project-panel-inner">
-                <button class="project-close" id="projectClose" aria-label="Close project">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <button
+                    class="project-close"
+                    id="projectClose"
+                    aria-label="Close project"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    >
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                 </button>
                 <div class="project-header">
                     <div class="project-tags" id="projectTags"></div>
@@ -958,23 +1827,66 @@
         </div>
 
         <!-- YOUTUBE VIDEO MODAL -->
-        <div class="yt-modal" id="ytModal" aria-modal="true" role="dialog" aria-label="Video player" style="display:none;">
+        <div
+            class="yt-modal"
+            id="ytModal"
+            aria-modal="true"
+            role="dialog"
+            aria-label="Video player"
+            style="display: none"
+        >
             <div class="yt-modal-box">
                 <div class="yt-modal-header">
                     <span class="yt-modal-title" id="ytModalTitle"></span>
-                    <button class="yt-close" id="ytClose" aria-label="Close video">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <button
+                        class="yt-close"
+                        id="ytClose"
+                        aria-label="Close video"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
                     </button>
                 </div>
                 <div class="yt-frame-wrap">
-                    <iframe id="ytIframe" src="" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe
+                        id="ytIframe"
+                        src=""
+                        frameborder="0"
+                        loading="lazy"
+                        allow="
+                            accelerometer;
+                            autoplay;
+                            clipboard-write;
+                            encrypted-media;
+                            gyroscope;
+                            picture-in-picture;
+                        "
+                        allowfullscreen
+                    ></iframe>
                 </div>
             </div>
         </div>
 
         <!-- BACK TO TOP -->
         <button class="back-top" id="backTop" aria-label="Back to top">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <polyline points="18 15 12 9 6 15" />
+            </svg>
         </button>
 
         <script src="script.js"></script>
