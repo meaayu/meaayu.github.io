@@ -19,23 +19,33 @@
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Pacifico&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
+        <style>
+            nav {
+                background: transparent !important;
+            }
+            nav.scrolled {
+                background: rgba(245, 242, 235, 0.82) !important;
+                backdrop-filter: blur(20px) saturate(2.2) brightness(1.04) !important;
+                -webkit-backdrop-filter: blur(20px) saturate(2.2) brightness(1.04) !important;
+                box-shadow: none !important;
+                transition: background 0.35s, backdrop-filter 0.35s !important;
+            }
+            [data-theme="dark"] nav.scrolled {
+                background: rgba(19, 17, 16, 0.82) !important;
+                backdrop-filter: blur(20px) saturate(2.2) brightness(0.96) !important;
+                -webkit-backdrop-filter: blur(20px) saturate(2.2) brightness(0.96) !important;
+                box-shadow: none !important;
+            }
+        </style>
     </head>
     <body>
+        <div class="sr-only" aria-live="polite" id="announcement" aria-atomic="true"></div>
         <div id="progress-bar" aria-hidden="true"></div>
-        <div
-            class="sr-only"
-            aria-live="polite"
-            id="announcement"
-            aria-atomic="true"
-        ></div>
-        <div id="cursor-dot" aria-hidden="true"></div>
-        <div id="cursor-ring" aria-hidden="true"></div>
-        <div id="cursor-glow" aria-hidden="true"></div>
-        <canvas id="bgParticles" aria-hidden="true"></canvas>
+
 
         <!-- SVG filters -->
         <svg
@@ -195,6 +205,28 @@
                 </nav>
                 <div class="mobile-nav-footer">
                     <p class="mobile-nav-tagline">Code × Art × Motion</p>
+                    <button
+                        class="mobile-theme-toggle"
+                        id="mobileThemeToggle"
+                        aria-label="Toggle dark/light mode"
+                        title="Toggle theme"
+                    >
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <span class="mobile-theme-label">Toggle theme</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -207,90 +239,45 @@
         <main>
             <!-- HERO -->
             <header class="hero" id="hero">
-                <canvas
-                    class="hero-particles"
-                    id="heroParticles"
-                    aria-hidden="true"
-                ></canvas>
-                <!-- Floating doodles -->
-
-                <div class="hero-doodles" aria-hidden="true">
-                    <svg
-                        class="doodle doodle-1"
-                        viewBox="0 0 60 60"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <circle
-                            cx="30"
-                            cy="30"
-                            r="24"
-                            fill="none"
-                            stroke="var(--accent)"
-                            stroke-width="1.4"
-                            opacity="0.22"
-                            stroke-dasharray="5 6"
-                        />
-                    </svg>
-                    <svg
-                        class="doodle doodle-2"
-                        viewBox="0 0 40 40"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M20 4 L24 16 L36 16 L26 24 L30 36 L20 28 L10 36 L14 24 L4 16 L16 16 Z"
-                            fill="none"
-                            stroke="var(--accent2)"
-                            stroke-width="1.2"
-                            opacity="0.28"
-                        />
-                    </svg>
-                    <svg
-                        class="doodle doodle-3"
-                        viewBox="0 0 50 50"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <rect
-                            x="8"
-                            y="8"
-                            width="34"
-                            height="34"
-                            rx="6"
-                            fill="none"
-                            stroke="var(--accent)"
-                            stroke-width="1.2"
-                            opacity="0.18"
-                            transform="rotate(15 25 25)"
-                        />
-                    </svg>
-                    <svg
-                        class="doodle doodle-4"
-                        viewBox="0 0 30 30"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M15 3 Q27 15 15 27 Q3 15 15 3Z"
-                            fill="none"
-                            stroke="var(--accent2)"
-                            stroke-width="1.2"
-                            opacity="0.25"
-                        />
-                    </svg>
-                </div>
                 <div class="hero-content">
-                    <span class="hero-eyebrow">Developer &amp; Artist</span>
-                    <h1>
-                        Yoo, I'm <br />
-                        <em class="hero-name">Aayu.</em>
-                    </h1>
-                    <p>
-                        I blend code, hand-drawn animation, illustration, and
-                        graphic design into things that feel human, thoughtful,
-                        and alive.
-                    </p>
-                    <div class="avail-badge" aria-label="Available for work">
-                        <span class="avail-dot"></span>
-                        Available for work
+
+                    <!-- Avatar at top -->
+                    <div class="hero-top-avatar-wrap">
+                        <div class="hero-top-avatar sk-wrap">
+                            <svg class="sk-svg" aria-hidden="true"><rect rx="20"/></svg>
+                            <img src="photo.jpg" alt="Aayu" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'" />
+                            <div class="hero-avatar-placeholder" aria-hidden="true" style="opacity:0;transition:opacity 0.3s">
+                                <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="40" cy="28" r="18" fill="var(--border-strong)" opacity="0.45"/>
+                                    <ellipse cx="40" cy="72" rx="28" ry="16" fill="var(--border-strong)" opacity="0.3"/>
+                                </svg>
+                            </div>
+                            <span class="hero-avatar-star" aria-hidden="true">✦</span>
+                        </div>
+                        <div class="avail-badge hero-card-avail" aria-label="Not available for work">
+                            <span class="avail-dot"></span>
+                            Not available
+                        </div>
                     </div>
+
+                    <div class="hero-name-row">
+                        <h1 class="hero-name-heading">Aayu<span class="hero-name-dot">.</span></h1>
+                        <div class="hero-verified-badge" aria-label="Verified" title="Verified">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <circle cx="12" cy="12" r="12" fill="var(--accent)"/>
+                                <polyline points="6.5,12.5 10,16 17.5,8.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <p class="hero-tagline-sub">Code × Art × Motion</p>
+
+                    <p class="hero-desc">
+                        I blend <em class="hero-kw hero-kw--code">code</em>, hand-drawn animation,
+                        <em class="hero-kw hero-kw--illo">illustration</em>, and graphic design into
+                        things that feel <em class="hero-kw hero-kw--alive">human, thoughtful, and alive.</em>
+                    </p>
+
                     <div class="hero-actions">
                         <a href="#work" class="btn sk-wrap">
                             See My Work
@@ -305,26 +292,16 @@
                             </svg>
                         </a>
                     </div>
+
                     <div class="hero-scroll-hint" aria-hidden="true">
                         <span>scroll</span>
-                        <svg
-                            viewBox="0 0 16 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                        >
+                        <svg viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                             <rect x="2" y="2" width="12" height="20" rx="6" />
-                            <line
-                                x1="8"
-                                y1="6"
-                                x2="8"
-                                y2="10"
-                                class="scroll-dot"
-                            />
+                            <line x1="8" y1="6" x2="8" y2="10" class="scroll-dot" />
                         </svg>
                     </div>
                 </div>
+
                 <div class="hero-art" aria-hidden="true">
                     <svg
                         viewBox="0 0 300 300"
@@ -357,26 +334,7 @@
                             rx="20"
                         />
 
-                        <!-- ─── Large accent circle (bottom-right, partially clipped) ─── -->
-                        <clipPath id="artclip">
-                            <rect width="300" height="300" rx="20" />
-                        </clipPath>
-                        <g clip-path="url(#artclip)">
-                            <circle
-                                cx="248"
-                                cy="252"
-                                r="110"
-                                fill="var(--accent)"
-                                opacity="0.10"
-                            />
-                            <circle
-                                cx="248"
-                                cy="252"
-                                r="72"
-                                fill="var(--accent)"
-                                opacity="0.12"
-                            />
-                        </g>
+
 
                         <!-- ─── Code editor card (top half) ─── -->
                         <rect
@@ -838,8 +796,8 @@
             </header>
 
             <!-- SKILLS -->
-            <section id="skills">
-                <div class="skills-heading"><h2>What I Craft</h2></div>
+            <section id="skills" tabindex="-1">
+                <div class="skills-heading"><h2 data-num="01">What I Craft</h2></div>
                 <div class="skills-grid">
                     <div class="skill-card sk-wrap reveal reveal-d1">
                         <svg class="sk-svg" aria-hidden="true">
@@ -852,43 +810,15 @@
                         <div class="skill-bars">
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">HTML/CSS</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="92"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">92%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">JavaScript</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="78"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">78%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">React</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="65"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">65%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Node.js</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="55"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">55%</span>
                             </div>
                         </div>
                     </div>
@@ -903,35 +833,14 @@
                         <div class="skill-bars">
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">2D Animation</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="80"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">80%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name"
                                     >Storyboarding</span
                                 >
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="70"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">70%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Tahoma2D</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="60"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">60%</span>
                             </div>
                         </div>
                     </div>
@@ -946,33 +855,12 @@
                         <div class="skill-bars">
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Krita</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="85"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">85%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Photoshop</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="72"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">72%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Concept Art</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="75"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">75%</span>
                             </div>
                         </div>
                     </div>
@@ -987,33 +875,12 @@
                         <div class="skill-bars">
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Figma</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="88"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">88%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Illustrator</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="68"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">68%</span>
                             </div>
                             <div class="skill-bar-row">
                                 <span class="skill-bar-name">Typography</span>
-                                <div class="skill-bar-track">
-                                    <div
-                                        class="skill-bar-fill"
-                                        data-w="80"
-                                    ></div>
-                                </div>
-                                <span class="skill-bar-pct">80%</span>
                             </div>
                         </div>
                     </div>
@@ -1023,7 +890,7 @@
 
             <!-- WORK -->
             <section id="work">
-                <h2>My works</h2>
+                <h2 data-num="02">My works</h2>
                 <!-- Filter tabs -->
                 <div
                     class="work-filters"
@@ -1495,7 +1362,7 @@
                 </div>
             </section>
             <section id="about">
-                <h2>About Me</h2>
+                <h2 data-num="03">About Me</h2>
                 <div class="about-grid">
                     <div class="about-text reveal">
                         <p>
@@ -1545,7 +1412,7 @@
 
             <!-- CONTACT -->
             <section id="contact">
-                <h2>Let's Connect</h2>
+                <h2 data-num="04">Let's Connect</h2>
                 <div class="contact-wrap">
                     <div class="contact-left reveal">
                         <p class="contact-big-cta">
@@ -1556,15 +1423,7 @@
                             just want to chat about art &amp; tech? I'd love to
                             hear from you.
                         </p>
-                        <div class="contact-email-action">
-                            <button class="copy-email-btn sk-wrap" id="copyEmailBtn" aria-label="Copy email address">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                                    <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                </svg>
-                                <span class="copy-email-text">aayu@example.com</span>
-                                <span class="copy-email-confirm" aria-hidden="true">Copied! ✓</span>
-                            </button>
-                        </div>
+
                         <div class="socials">
                             <a href="#" aria-label="GitHub">
                                 <svg
@@ -1833,6 +1692,7 @@
             aria-modal="true"
             role="dialog"
             aria-label="Video player"
+            aria-hidden="true"
             style="display: none"
         >
             <div class="yt-modal-box">

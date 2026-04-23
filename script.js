@@ -50,6 +50,15 @@ themeToggle.addEventListener("click", () => {
   applyTheme(next, true);
 });
 
+// Mobile nav theme toggle — mirrors the main toggle
+const mobileThemeToggle = document.getElementById("mobileThemeToggle");
+if (mobileThemeToggle) {
+  mobileThemeToggle.addEventListener("click", () => {
+    const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next, true);
+  });
+}
+
 // Auto-switch if OS theme changes and user has no saved preference
 prefersDark.addEventListener("change", e => {
   if (!localStorage.getItem("aayu-theme")) {
@@ -111,6 +120,7 @@ const progressBar = document.getElementById("progress-bar");
 let rafScheduled = false;
 
 function updateProgress() {
+  if (!progressBar) { rafScheduled = false; return; }
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
   progressBar.style.width = Math.min(pct, 100) + "%";
@@ -133,7 +143,7 @@ window.addEventListener("scroll", () => {
 /* ── Mobile nav ─────────────────────────────────────────────── */
 const menuToggle    = document.getElementById("menuToggle");
 const mobileNav     = document.getElementById("mobileNav");
-const mobileOverlay = document.getElementById("mobileNavOverlay");
+const mobileOverlay = document.getElementById("mobileNavOverlay") || document.querySelector(".mobile-nav-overlay");
 const mobileClose   = document.getElementById("mobileNavClose");
 const mobileLinks   = mobileNav.querySelectorAll(".mobile-link");
 let   lastFocus     = null;
@@ -144,8 +154,7 @@ function openMenu() {
   menuToggle.classList.add("active");
   mobileNav.classList.add("active");
   mobileNav.setAttribute("aria-hidden", "false");
-  mobileOverlay.style.display = "block";
-  requestAnimationFrame(() => mobileOverlay.classList.add("active"));
+  if (mobileOverlay) mobileOverlay.classList.add("active");
   document.body.style.overflow = "hidden";
   mobileNav.querySelector(".mobile-link")?.focus();
 }
@@ -155,8 +164,7 @@ function closeMenu() {
   menuToggle.classList.remove("active");
   mobileNav.classList.remove("active");
   mobileNav.setAttribute("aria-hidden", "true");
-  mobileOverlay.classList.remove("active");
-  setTimeout(() => { mobileOverlay.style.display = "none"; }, 350);
+  if (mobileOverlay) mobileOverlay.classList.remove("active");
   document.body.style.overflow = "";
   lastFocus?.focus();
 }
@@ -179,7 +187,7 @@ menuToggle.addEventListener("click", () =>
 );
 mobileClose.addEventListener("click", closeMenu);
 mobileLinks.forEach(l => l.addEventListener("click", closeMenu));
-mobileOverlay.addEventListener("click", closeMenu);
+mobileOverlay?.addEventListener("click", closeMenu);
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && mobileNav.classList.contains("active")) closeMenu();
 });
@@ -268,53 +276,9 @@ document.querySelectorAll("[data-count], .stat-num, .stat-number").forEach(el =>
   }
 });
 
-/* ── Custom cursor ───────────────────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
-  const dot  = document.getElementById("cursor-dot");
-  const ring = document.getElementById("cursor-ring");
 
-  if (!dot || !ring || !window.matchMedia("(hover: hover)").matches) return;
 
-  document.addEventListener("mousemove", e => {
-    const x = e.clientX, y = e.clientY;
-    document.body.classList.add("cursor-active");
-    dot.style.left  = x + "px";
-    dot.style.top   = y + "px";
-    ring.style.left = x + "px";
-    ring.style.top  = y + "px";
-  }, { passive: true });
 
-  document.querySelectorAll("a, button, .card, .tag, .btn").forEach(el => {
-    el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
-    el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
-  });
-
-  document.addEventListener("click", e => {
-    const r = document.createElement("div");
-    r.className = "ink-ripple";
-    r.style.cssText = `left:${e.clientX - 3}px;top:${e.clientY - 3}px`;
-    document.body.appendChild(r);
-    r.addEventListener("animationend", () => r.remove(), { once: true });
-  });
-});
-
-/* ── 3D card tilt ────────────────────────────────────────────── */
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("mousemove", e => {
-    const rect = card.getBoundingClientRect();
-    const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
-    const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
-    card.style.transform = `perspective(700px) rotateX(${dy * -6}deg) rotateY(${dx * 6}deg) translateY(-4px)`;
-    // Subtle shine overlay
-    card.style.setProperty("--shine-x", `${(dx + 1) * 50}%`);
-    card.style.setProperty("--shine-y", `${(dy + 1) * 50}%`);
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "";
-    card.style.removeProperty("--shine-x");
-    card.style.removeProperty("--shine-y");
-  });
-});
 
 /* ── Hero art parallax ───────────────────────────────────────── */
 const heroArt = document.querySelector(".hero-art");
@@ -326,36 +290,10 @@ if (heroArt && window.matchMedia("(hover: hover)").matches) {
   }, { passive: true });
 }
 
-/* ── Hero eyebrow typewriter ─────────────────────────────────── */
-// LEFT decorative line is intentionally omitted here.
-// Text color is controlled by updateRoleColors() above.
-const eyebrow = document.querySelector(".hero-eyebrow");
-if (eyebrow) {
-  const text = eyebrow.textContent.trim();
-  eyebrow.textContent = "";
-  eyebrow.style.cssText = "opacity:1;animation:none";
 
-  // ← LEFT line REMOVED (was: prefix span with width:28px, height:1px)
-
-  const typed = document.createElement("span");
-  typed.className = "eyebrow-typed";
-  eyebrow.appendChild(typed);
-
-  // Color is handled by CSS var(--accent) — don't override with inline styles
-  eyebrow.style.fontWeight = "500";
-
-  let i = 0;
-  const type = () => {
-    if (i < text.length) {
-      typed.textContent += text[i++];
-      setTimeout(type, 40 + Math.random() * 20);
-    }
-  };
-  setTimeout(type, 400);
-}
 
 /* ── Magnetic buttons ────────────────────────────────────────── */
-document.querySelectorAll(".btn, .nav-cta").forEach(btn => {
+document.querySelectorAll(".btn:not(.nav-cta)").forEach(btn => {
   btn.addEventListener("mousemove", e => {
     const r  = btn.getBoundingClientRect();
     const dx = (e.clientX - r.left - r.width  / 2) * 0.25;
@@ -421,7 +359,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (!target) return;
     e.preventDefault();
     target.scrollIntoView({ behavior: "smooth", block: "start" });
-    // Update URL without jumping
+    // Update URL without jumping (replaceState avoids polluting history)
     history.pushState(null, "", a.getAttribute("href"));
   });
 });
@@ -557,10 +495,12 @@ function openYTPlayer(ytId, title) {
 function closeYTPlayer() {
   const modal = document.getElementById("ytModal");
   const iframe = document.getElementById("ytIframe");
+  if (!modal) return;
   modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
   setTimeout(() => {
     modal.style.display = "none";
-    iframe.src = ""; // stop video
+    if (iframe) iframe.src = ""; // stop video
   }, 300);
 }
 
@@ -694,31 +634,7 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
     });
   }
 
-  // Copy email button
-  const copyBtn = document.getElementById("copyEmailBtn");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", () => {
-      const email = copyBtn.querySelector(".copy-email-text")?.textContent?.trim();
-      if (!email) return;
-      navigator.clipboard.writeText(email).then(() => {
-        copyBtn.classList.add("copied");
-        announce("Email address copied!");
-        setTimeout(() => copyBtn.classList.remove("copied"), 2000);
-      }).catch(() => {
-        // Fallback for older browsers
-        const ta = document.createElement("textarea");
-        ta.value = email;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        ta.remove();
-        copyBtn.classList.add("copied");
-        setTimeout(() => copyBtn.classList.remove("copied"), 2000);
-      });
-    });
-  }
+
 
   function validate() {
     let ok = true;
@@ -751,7 +667,9 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
   submitBtn?.addEventListener("click", () => {
     if (!validate()) return;
     // Simulate async send
-    submitBtn.textContent = "Sending…";
+    const origHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = "Sending… <svg class=\"sk-svg\" aria-hidden=\"true\"><rect class=\"acc\" rx=\"4\"/></svg>";
+    submitBtn._origHTML = origHTML;
     submitBtn.classList.add("sending");
     submitBtn.disabled = true;
     setTimeout(() => {
@@ -833,145 +751,15 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
   observer.observe(art);
 })();
 
-/* ── Background particle canvas ──────────────────────────────── */
-(function() {
-  const canvas = document.getElementById("bgParticles");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  let W, H, particles = [];
-  const COUNT = 55;
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
-
-  function getAccent() {
-    const theme = document.documentElement.getAttribute("data-theme");
-    return theme === "dark" ? "rgba(212,113,79," : "rgba(191,84,48,";
-  }
-
-  function mkParticle() {
-    return {
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: 0.6 + Math.random() * 1.6,
-      vx: (Math.random() - 0.5) * 0.22,
-      vy: (Math.random() - 0.5) * 0.22,
-      a: 0.06 + Math.random() * 0.18,
-    };
-  }
-
-  for (let i = 0; i < COUNT; i++) particles.push(mkParticle());
-
-  let animId;
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const base = getAccent();
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < -4) p.x = W + 4;
-      if (p.x > W + 4) p.x = -4;
-      if (p.y < -4) p.y = H + 4;
-      if (p.y > H + 4) p.y = -4;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = base + p.a + ")";
-      ctx.fill();
-    });
-    // Draw faint connecting lines between nearby particles
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = base + (0.045 * (1 - dist / 120)) + ")";
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
-        }
-      }
-    }
-    animId = requestAnimationFrame(draw);
-  }
-
-  // Pause when tab not visible (performance)
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) cancelAnimationFrame(animId);
-    else draw();
-  });
-
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
-})();
-
-/* ── Hero particle canvas ────────────────────────────────────── */
-(function() {
-  const canvas = document.getElementById("heroParticles");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  let W, H;
-  const sparks = [];
-  const N = 30;
-
-  function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    W = canvas.width  = rect.width;
-    H = canvas.height = rect.height;
-  }
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
-
-  for (let i = 0; i < N; i++) {
-    sparks.push({
-      x: Math.random() * (typeof W !== "undefined" ? W : 800),
-      y: Math.random() * (typeof H !== "undefined" ? H : 600),
-      r: 1 + Math.random() * 2.2,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: -0.15 - Math.random() * 0.35,
-      a: 0.12 + Math.random() * 0.22,
-      life: Math.random(),
-    });
-  }
-
-  function drawHero() {
-    if (!W || !H) return;
-    ctx.clearRect(0, 0, W, H);
-    const theme = document.documentElement.getAttribute("data-theme");
-    const col = theme === "dark" ? "212,113,79" : "191,84,48";
-    sparks.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= 0.004;
-      if (p.life <= 0 || p.y < -10) {
-        p.x = Math.random() * W;
-        p.y = H + 5;
-        p.life = 0.5 + Math.random() * 0.5;
-      }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${col},${p.a * p.life})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(drawHero);
-  }
-
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) drawHero();
-})();
-
 /* ── Keyboard navigation: skip-to-content ────────────────────── */
 (function() {
   // Add a skip link dynamically if not already present
   if (!document.getElementById("skip-link")) {
     const skip = document.createElement("a");
     skip.id = "skip-link";
-    skip.href = "#skills";
-    skip.textContent = "Skip to content";
+    skip.href = "#skills"; /* #skills = first content section after nav */
+    skip.textContent = "Skip to main content";
+    skip.setAttribute("aria-label", "Skip navigation and go to main content");
     skip.style.cssText = [
       "position:fixed", "top:-100%", "left:1rem", "z-index:9999",
       "background:var(--accent)", "color:#fff", "padding:0.5rem 1rem",
@@ -1012,4 +800,56 @@ document.getElementById("ytModal")?.addEventListener("click", e => {
         : "translateY(14px)";
     });
   }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   ✦ ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* cursor removed */
+
+/* ── TYPEWRITER EFFECT on hero tagline sub ───────────────────── */
+(function() {
+  const el = document.querySelector(".hero-tagline-sub");
+  if (!el) return;
+  const phrases = ["Code × Art × Motion", "Developer & Artist", "Based in Nepal ✦", "Let's build something ↗"];
+  let pi = 0, ci = 0, deleting = false, wait = 0;
+
+  const cursor = document.createElement("span");
+  cursor.className = "typewriter-cursor";
+
+  const textNode = document.createTextNode("");
+  el.textContent = "";
+  el.appendChild(textNode);
+  el.appendChild(cursor);
+
+  function tick() {
+    if (wait > 0) { wait--; setTimeout(tick, 80); return; }
+    const phrase = phrases[pi];
+    if (!deleting) {
+      textNode.textContent = phrase.slice(0, ci + 1);
+      ci++;
+      if (ci === phrase.length) { deleting = true; wait = 22; setTimeout(tick, 80); return; }
+    } else {
+      textNode.textContent = phrase.slice(0, ci - 1);
+      ci--;
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; wait = 5; setTimeout(tick, 80); return; }
+    }
+    setTimeout(tick, deleting ? 42 : 68);
+  }
+
+  setTimeout(tick, 1200);
+})();
+
+/* tilt removed */
+
+/* ── ACTIVE NAV LINK HIGHLIGHT — handled by activeObserver above ── */
+
+/* ── STAT COUNT-UP — handled by counterObserver above ── */
+
+/* ── SKILL CARD STAGGER DELAYS ───────────────────────────────── */
+(function() {
+  document.querySelectorAll(".skills-grid .skill-card").forEach((card, i) => {
+    card.style.setProperty("--d", i);
+  });
 })();
